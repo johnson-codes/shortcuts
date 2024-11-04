@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load tasks from localStorage
     function loadTasks() {
-        const tasks = JSON.parse(localStorage.getItem('gptSearchTasks')) || [];
+        const tasks = JSON.parse(localStorage.getItem('macOsTasks')) || [];
         tasks.forEach(taskText => {
             addTaskToList(taskText);
         });
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Save tasks to localStorage
     function saveTasks() {
         const tasks = Array.from(todoList1.children).map(task => task.textContent.slice(0, -1));
-        localStorage.setItem('gptSearchTasks', JSON.stringify(tasks));
+        localStorage.setItem('macOsTasks', JSON.stringify(tasks));
     }
 
     // Function to add a new task

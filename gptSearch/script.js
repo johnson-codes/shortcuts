@@ -1,24 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const addButton = document.getElementById('add-todo');
     const todoInput = document.getElementById('todo-input');
-    const todoList1 = document.getElementById('todo-list-1');
-
-    // Load tasks from localStorage
-    function loadTasks() {
-        const tasks = JSON.parse(localStorage.getItem('gptSearchTasks')) || [];
-        tasks.forEach(task => {
-            addTaskToList(task.text, task.completed);
-        });
-    }
-
-    // Save tasks to localStorage
-    function saveTasks() {
-        const tasks = Array.from(todoList1.children).map(task => ({
-            text: task.querySelector('span').textContent,
-            completed: task.querySelector('input').checked
-        }));
-        localStorage.setItem('gptSearchTasks', JSON.stringify(tasks));
-    }
+    const lists = document.querySelectorAll('ol');
+    let draggedItem = null;
 
     // Function to add a new task
     function addTask() {
@@ -26,30 +10,29 @@ document.addEventListener('DOMContentLoaded', () => {
         if (taskText !== '') {
             addTaskToList(taskText, false);
             todoInput.value = ''; // Clear the input field
-            saveTasks(); // Save tasks to localStorage
         }
     }
 
     // Function to add a task to the list with a delete button and checkbox
     function addTaskToList(taskText, completed) {
         const newTask = document.createElement('li');
-        newTask.style.position = 'relative'; // Ensure the list item is positioned relative
-        newTask.style.listStyleType = 'none'; // Remove list style
+        newTask.style.position = 'relative';
+        newTask.style.listStyleType = 'none';
+        newTask.setAttribute('draggable', true);
 
         // Create checkbox
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.checked = completed;
-        checkbox.style.marginRight = '8px'; // Ensure spacing between checkbox and text
+        checkbox.style.marginRight = '8px';
         checkbox.onchange = function() {
             if (checkbox.checked) {
                 taskSpan.style.fontWeight = 'bold';
-                taskSpan.style.color = 'purple'; // Change to purple
+                taskSpan.style.color = 'purple';
             } else {
                 taskSpan.style.fontWeight = 'normal';
                 taskSpan.style.color = 'black';
             }
-            saveTasks(); // Update localStorage
         };
 
         // Create task text span
@@ -57,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         taskSpan.textContent = taskText;
         if (completed) {
             taskSpan.style.fontWeight = 'bold';
-            taskSpan.style.color = 'purple'; // Change to purple
+            taskSpan.style.color = 'purple';
         }
 
         // Create delete button
@@ -67,10 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
         deleteButton.style.cursor = 'pointer';
         deleteButton.style.display = 'none';
         deleteButton.style.position = 'absolute';
-        deleteButton.style.right = '0'; // Position the "x" at the end
+        deleteButton.style.right = '0';
         deleteButton.onclick = function() {
-            todoList1.removeChild(newTask);
-            saveTasks(); // Update localStorage
+            newTask.parentElement.removeChild(newTask);
         };
 
         newTask.appendChild(checkbox);
@@ -83,7 +65,22 @@ document.addEventListener('DOMContentLoaded', () => {
             deleteButton.style.display = 'none';
         };
 
-        todoList1.appendChild(newTask);
+        // Add drag events
+        newTask.addEventListener('dragstart', (e) => {
+            draggedItem = newTask;
+            setTimeout(() => {
+                newTask.style.display = 'none';
+            }, 0);
+        });
+
+        newTask.addEventListener('dragend', () => {
+            setTimeout(() => {
+                draggedItem.style.display = 'block';
+                draggedItem = null;
+            }, 0);
+        });
+
+        lists[0].appendChild(newTask); // Add to the first list by default
     }
 
     // Add event listener for button click
@@ -96,6 +93,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Load tasks when the page is loaded
-    loadTasks();
+    // Add drag and drop events to lists
+    lists.forEach(list => {
+        list.addEventListener('dragover', (e) => {
+            e.preventDefault();
+        });
+
+        list.addEventListener('dragenter', (e) => {
+            e.preventDefault();
+            list.style.background = '#e0e0e0'; // Highlight the list
+        });
+
+        list.addEventListener('dragleave', () => {
+            list.style.background = '';
+        });
+
+        list.addEventListener('drop', (e) => {
+            e.preventDefault();
+            list.style.background = '';
+            if (draggedItem) {
+                list.appendChild(draggedItem);
+            }
+        });
+    });
 }); 

@@ -39,12 +39,59 @@
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
+        /* Style the todo-input-container */
+        .todo-input-container {
+            background-color: #fafafa; /* Light grey background */
+            padding: 20px; /* Add padding for spacing */
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px; /* Add top margin for spacing */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Style the input field */
+        #todo-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px; /* Space between input and select */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Style the select dropdown */
+        #list-select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px; /* Space between select and button */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Style the add button */
+        #add-todo {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        #add-todo:hover {
+            background: linear-gradient(to right, #5a0ebc, #1f63e0);
+        }
     </style>
 </head>
 <body style="background-image: url('../image/dic.png'); background-size: cover; background-color: rgba(255, 255, 255, 0.5); background-blend-mode: overlay;">
     <div class="wrapper">
         <div class="main-container">
             <div class="todo-list-container">
+                <h3 style="text-align: center;">Beginner</h3>
                 <h2 id="date-header"></h2>
                 <hr class="separator">
                 <ol id="todo-list-1" start="1">
@@ -52,6 +99,7 @@
                 </ol>
             </div>
             <div class="todo-list-container">
+                <h3 style="text-align: center;">Intermediate</h3>
                 <h2 id="date-header"></h2>
                 <hr class="separator">
                 <ol id="todo-list-2" start="21">
@@ -59,6 +107,7 @@
                 </ol>
             </div>
             <div class="todo-list-container">
+                <h3 style="text-align: center;">Advanced</h3>
                 <h2 id="date-header"></h2>
                 <hr class="separator">
                 <ol id="todo-list-3" start="41">
@@ -66,6 +115,7 @@
                 </ol>
             </div>
             <div class="todo-list-container">
+                <h3 style="text-align: center;">Expert</h3>
                 <h2 id="date-header"></h2>
                 <hr class="separator">
                 <ol id="todo-list-4" start="61">
@@ -76,6 +126,12 @@
         <div class="todo-input-container">
             <h3>Add a shortcut</h3>
             <input type="text" id="todo-input" placeholder="Add a new shortcut...">
+            <select id="list-select">
+                <option value="todo-list-1">Beginner</option>
+                <option value="todo-list-2">Intermediate</option>
+                <option value="todo-list-3">Advanced</option>
+                <option value="todo-list-4">Expert</option>
+            </select>
             <button id="add-todo">Add</button>
         </div>
     </div>

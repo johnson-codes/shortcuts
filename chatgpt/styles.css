@@ -52,6 +52,7 @@ body {
     padding: 0;
     margin: 0;
     list-style-position: inside; /* Ensures list numbers are inside the container */
+    font-size: 1.2em; /* Increase the font size */
 }
 
 .todo-input-container {

@@ -4,17 +4,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const lists = document.querySelectorAll('ol');
     let draggedItem = null;
 
+    // Load tasks from localStorage
+    function loadTasks() {
+        lists.forEach((list, index) => {
+            const tasks = JSON.parse(localStorage.getItem(`todo-list-${index + 1}`)) || [];
+            tasks.forEach(task => addTaskToList(task.text, task.completed, list));
+        });
+    }
+
+    // Save tasks to localStorage
+    function saveTasks() {
+        lists.forEach((list, index) => {
+            const tasks = [];
+            list.querySelectorAll('li').forEach(item => {
+                const checkbox = item.querySelector('input[type="checkbox"]');
+                const taskSpan = item.querySelector('span');
+                tasks.push({ text: taskSpan.textContent, completed: checkbox.checked });
+            });
+            localStorage.setItem(`todo-list-${index + 1}`, JSON.stringify(tasks));
+        });
+    }
+
     // Function to add a new task
     function addTask() {
         const taskText = todoInput.value.trim();
         if (taskText !== '') {
-            addTaskToList(taskText, false);
+            addTaskToList(taskText, false, lists[0]);
             todoInput.value = ''; // Clear the input field
+            saveTasks();
         }
     }
 
     // Function to add a task to the list with a delete button and checkbox
-    function addTaskToList(taskText, completed) {
+    function addTaskToList(taskText, completed, list) {
         const newTask = document.createElement('li');
         newTask.style.position = 'relative';
         newTask.style.listStyleType = 'none';
@@ -33,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 taskSpan.style.fontWeight = 'normal';
                 taskSpan.style.color = 'black';
             }
+            saveTasks();
         };
 
         // Create task text span
@@ -53,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         deleteButton.style.right = '0';
         deleteButton.onclick = function() {
             newTask.parentElement.removeChild(newTask);
+            saveTasks();
         };
 
         newTask.appendChild(checkbox);
@@ -77,10 +101,11 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 draggedItem.style.display = 'block';
                 draggedItem = null;
+                saveTasks();
             }, 0);
         });
 
-        lists[0].appendChild(newTask); // Add to the first list by default
+        list.appendChild(newTask);
     }
 
     // Add event listener for button click
@@ -113,7 +138,10 @@ document.addEventListener('DOMContentLoaded', () => {
             list.style.background = '';
             if (draggedItem) {
                 list.appendChild(draggedItem);
+                saveTasks();
             }
         });
     });
+
+    loadTasks(); // Load tasks on page load
 }); 

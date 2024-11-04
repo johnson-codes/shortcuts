@@ -90,4 +90,27 @@ button {
 
 button:hover {
     background-image: linear-gradient(to right, #5a0fbf 20%, #1f6fe0 80%);
+}
+
+.todo-item {
+    position: relative;
+    padding-right: 20px; /* Space for the "x" button */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.todo-item .remove-btn {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    color: red; /* Make the "x" button red */
+}
+
+.todo-item:hover {
+    background-color: #e0e0e0; /* Grey background on hover */
+}
+
+.todo-item:hover .remove-btn {
+    display: inline;
 } 

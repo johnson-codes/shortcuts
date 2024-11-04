@@ -7,9 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     todoLists.forEach((list, index) => {
         const savedTasks = JSON.parse(localStorage.getItem(`todoList${index + 1}`)) || [];
         savedTasks.forEach(task => {
-            const li = document.createElement('li');
-            li.textContent = task;
-            list.appendChild(li);
+            addTodoItem(list, task, index);
         });
     });
 
@@ -19,9 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let added = false;
             todoLists.forEach((list, index) => {
                 if (!added && list.children.length < 20) {
-                    const li = document.createElement('li');
-                    li.textContent = task;
-                    list.appendChild(li);
+                    addTodoItem(list, task, index);
 
                     // Save to localStorage
                     const tasks = JSON.parse(localStorage.getItem(`todoList${index + 1}`)) || [];
@@ -43,4 +39,28 @@ document.addEventListener('DOMContentLoaded', () => {
             addTask();
         }
     });
+
+    function addTodoItem(todoList, taskText, listIndex) {
+        const listItem = document.createElement('li');
+        listItem.className = 'todo-item';
+        listItem.textContent = taskText;
+
+        const removeBtn = document.createElement('span');
+        removeBtn.className = 'remove-btn';
+        removeBtn.textContent = 'x';
+        removeBtn.onclick = function() {
+            todoList.removeChild(listItem);
+
+            // Update localStorage
+            const tasks = JSON.parse(localStorage.getItem(`todoList${listIndex + 1}`)) || [];
+            const taskIndex = tasks.indexOf(taskText);
+            if (taskIndex > -1) {
+                tasks.splice(taskIndex, 1);
+                localStorage.setItem(`todoList${listIndex + 1}`, JSON.stringify(tasks));
+            }
+        };
+
+        listItem.appendChild(removeBtn);
+        todoList.appendChild(listItem);
+    }
 }); 

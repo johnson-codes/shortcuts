@@ -1,34 +1,40 @@
-document.getElementById('add-todo').addEventListener('click', addTaskFromInput);
-document.getElementById('todo-input').addEventListener('keypress', function(event) {
-    if (event.key === 'Enter') {
-        addTaskFromInput();
-    }
-});
+document.addEventListener('DOMContentLoaded', () => {
+    const todoInput = document.getElementById('todo-input');
+    const addTodoButton = document.getElementById('add-todo');
+    const todoLists = document.querySelectorAll('ul[id^="todo-list-"]');
 
-function addTaskFromInput() {
-    const taskInput = document.getElementById('todo-input');
-    const taskText = taskInput.value.trim();
-    if (taskText) {
-        addTask(taskText);
-        taskInput.value = '';
-    }
-}
-
-function addTask(taskText) {
-    const containers = document.querySelectorAll('.todo-list-container ul');
-    let added = false;
-
-    containers.forEach((container, index) => {
-        if (!added && container.children.length < 20) {
-            const taskNumber = index * 20 + container.children.length + 1;
-            const listItem = document.createElement('li');
-            listItem.textContent = `${taskNumber}. ${taskText}`;
-            container.appendChild(listItem);
-            added = true;
-        }
+    // Load tasks from localStorage
+    todoLists.forEach((list, index) => {
+        const savedTasks = JSON.parse(localStorage.getItem(`todoList${index + 1}`)) || [];
+        savedTasks.forEach(task => {
+            const li = document.createElement('li');
+            li.textContent = task;
+            list.appendChild(li);
+        });
     });
 
-    if (!added) {
-        alert('All containers are full!');
-    }
-} 
+    const addTask = () => {
+        const task = todoInput.value.trim();
+        if (task) {
+            const list = todoLists[0]; // Add to the first list as an example
+            const li = document.createElement('li');
+            li.textContent = task;
+            list.appendChild(li);
+
+            // Save to localStorage
+            const tasks = JSON.parse(localStorage.getItem('todoList1')) || [];
+            tasks.push(task);
+            localStorage.setItem('todoList1', JSON.stringify(tasks));
+
+            todoInput.value = ''; // Clear input
+        }
+    };
+
+    addTodoButton.addEventListener('click', addTask);
+
+    todoInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            addTask();
+        }
+    });
+}); 

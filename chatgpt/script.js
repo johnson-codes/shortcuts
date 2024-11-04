@@ -16,15 +16,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const addTask = () => {
         const task = todoInput.value.trim();
         if (task) {
-            const list = todoLists[0]; // Add to the first list as an example
-            const li = document.createElement('li');
-            li.textContent = task;
-            list.appendChild(li);
+            let added = false;
+            todoLists.forEach((list, index) => {
+                if (!added && list.children.length < 20) {
+                    const li = document.createElement('li');
+                    li.textContent = task;
+                    list.appendChild(li);
 
-            // Save to localStorage
-            const tasks = JSON.parse(localStorage.getItem('todoList1')) || [];
-            tasks.push(task);
-            localStorage.setItem('todoList1', JSON.stringify(tasks));
+                    // Save to localStorage
+                    const tasks = JSON.parse(localStorage.getItem(`todoList${index + 1}`)) || [];
+                    tasks.push(task);
+                    localStorage.setItem(`todoList${index + 1}`, JSON.stringify(tasks));
+
+                    added = true;
+                }
+            });
 
             todoInput.value = ''; // Clear input
         }

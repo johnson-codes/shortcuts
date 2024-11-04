@@ -681,6 +681,12 @@
         header {
             margin-bottom: 0; /* Ensure no margin below header */
         }
+
+        #logo:hover {
+            /* Check for any properties that might hide the image */
+            opacity: 1; /* Ensure opacity is set to 1 */
+            /* Remove any display: none or visibility: hidden */
+        }
     </style>
 </head>
 <body>
@@ -817,11 +823,11 @@
         const logo = document.getElementById('logo');
 
         logo.addEventListener('mouseover', () => {
-            logo.src = 'image/gif.gif'; // Change to GIF on hover
+            logo.src = 'https://raw.githubusercontent.com/Johnson-Frontend/project/f68cdce450cba72f6748550041e998e7db9e2fd9/image/gif.gif'; // Ensure this path is correct
         });
 
         logo.addEventListener('mouseout', () => {
-            logo.src = 'image/logo.svg'; // Change back to SVG when not hovered
+            logo.src = 'https://raw.githubusercontent.com/Johnson-Frontend/project/f68cdce450cba72f6748550041e998e7db9e2fd9/image/logo.svg'; // Ensure this path is correct
         });
     </script>
 </body>

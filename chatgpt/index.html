@@ -20,9 +20,9 @@
             position: relative;
         }
 
-        /* Style the checkmark with a gradient from purple to blue */
+        /* Style the checkmark with a brighter gradient from light purple to light blue */
         input[type="checkbox"]:checked {
-            background: linear-gradient(to right, #8e44ad, #3498db);
+            background: linear-gradient(to right, #d1a3ff, #85c1e9);
             border: none;
         }
 
@@ -30,6 +30,14 @@
         li {
             display: flex;
             align-items: center;
+        }
+
+        /* Brighten the container backgrounds */
+        .todo-list-container, .todo-input-container {
+            background-color: #fafafa; /* Even lighter grey */
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>

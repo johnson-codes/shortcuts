@@ -11,6 +11,7 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    font-size: 12px;
 }
 
 .wrapper {
@@ -47,9 +48,10 @@ body {
     overflow-y: auto;
 }
 
-.todo-list-container ul {
-    list-style-type: none;
+.todo-list-container ol {
     padding: 0;
+    margin: 0;
+    list-style-position: inside; /* Ensures list numbers are inside the container */
 }
 
 .todo-input-container {
@@ -93,9 +95,10 @@ button:hover {
 }
 
 .todo-item {
+    padding: 0; /* Remove padding to keep text on the same line */
+    margin: 0; /* Remove margin to keep text on the same line */
     position: relative;
-    padding-right: 20px; /* Space for the "x" button */
-    transition: background-color 0.3s ease; /* Smooth transition for background color */
+    transition: background-color 0.3s ease;
 }
 
 .todo-item .remove-btn {

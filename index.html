@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shortcut Checklist</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="blog.css">
+    <link rel="icon" href="https://raw.githubusercontent.com/Johnson-Frontend/cursor/74fbb9994f7e47dabc67bb20cd294f161bcc2fc0/image/favicon.svg" type="image/svg+xml">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url('image/bg.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+        }
+        header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            padding: 1.5rem 0;
+            text-align: center;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: none;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            margin-left: 145px;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+            margin-left: -50px;
+        }
+        .nav-logo:hover {
+            transform: scale(1.05);
+        }
+        .nav-logo img {
+            max-width: 45px;
+            margin-right: 10px;
+            transition: transform 0.5s ease;
+        }
+        .nav-logo:hover img {
+            transform: scale(1.05);
+        }
+        .nav-logo span {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        nav a {
+            color: #fff;
+            margin: 0 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 0.5rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        nav a:hover {
+            color: #ffcc00;
+            transform: translateY(-2px);
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            justify-content: center;
+        }
+        @media (max-width: 1024px) {
+            .project-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 768px) {
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .project-category {
+            background-color: rgba(248, 249, 250, 0.6);
+            border-radius: 8px;
+            padding: 0 15px 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-size: 0.9rem;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+        .project-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .project-category ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .project-category li {
+            margin-bottom: 5px;
+            padding: 3px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .project-category li:hover {
+            background-color: rgba(102, 126, 234, 0.1);
+        }
+        .project-category a {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: block;
+        }
+        .project-category a:hover {
+            color: #667eea;
+        }
+        footer {
+            background-color: rgba(45, 55, 72, 0.9);
+            color: #e2e8f0;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 40px;
+        }
+        .project-category h2 {
+            color: #fff;
+            font-size: 1.2rem;
+            margin: 0 -15px 10px;
+            padding: 10px 15px;
+            background-image: linear-gradient(to right, rgba(106, 17, 203, 0.8) 20%, rgba(37, 117, 252, 0.8) 80%);
+            border-radius: 8px 8px 0 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .project-category h2::after {
+            content: none;
+        }
+        /* Add this new style to create more space between rows */
+        .project-category:nth-child(n+4) {
+            margin-top: 0;
+        }
+        .search-container {
+            max-width: 600px;
+            margin: 60px auto;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        #searchInput {
+            width: 70%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #667eea;
+            border-radius: 20px 0 0 20px;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .search-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-image: linear-gradient(to right, #6a11cb 20%, #2575fc 80%);
+            color: white;
+            border: none;
+            border-radius: 0 20px 20px 0;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .search-container button:hover {
+            opacity: 0.9;
+        }
+
+        .highlight {
+            background-image: linear-gradient(to right, rgba(106, 17, 203, 0.4), rgba(37, 117, 252, 0.4));
+            border-radius: 3px;
+            padding: 2px 5px;
+            margin: 0 -5px;
+            position: relative;
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+            color: #000;
+            font-weight: 600;
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 8px rgba(106, 17, 203, 0.3);
+        }
+
+        /* Updated animation for more visibility */
+        @keyframes highlightPulse {
+            0% { 
+                transform: scale(1);
+                box-shadow: 0 0 8px rgba(106, 17, 203, 0.3);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 0 12px rgba(37, 117, 252, 0.5);
+            }
+            100% { 
+                transform: scale(1);
+                box-shadow: 0 0 8px rgba(106, 17, 203, 0.3);
+            }
+        }
+
+        .highlight {
+            animation: highlightPulse 1.5s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        /* Add styles for the parent element when it contains a highlight */
+        .project-category a:has(.highlight) {
+            background-color: rgba(106, 17, 203, 0.1);
+            display: block;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        /* Add a subtle hover effect */
+        .project-category:hover h2 {
+            background-image: linear-gradient(to right, rgba(106, 17, 203, 0.9) 20%, rgba(37, 117, 252, 0.9) 80%);
+            transition: background-image 0.3s ease;
+        }
+
+        .back-to-top {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            padding: 10px;
+            margin: 20px auto 40px;
+            text-align: center;
+        }
+
+        .back-to-top img {
+            width: 150px;
+            height: auto;
+            margin-bottom: 4px;
+            transition: transform 0.3s ease;
+            object-fit: contain;
+        }
+
+        .back-to-top:hover img {
+            transform: translateY(-5px);
+        }
+
+        .back-to-top span {
+            color: #4a5568;
+            font-size: 1.1rem;
+            font-weight: 500;
+            white-space: nowrap;
+            margin-top: 5px;
+        }
+
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .chat-button {
+            background-image: linear-gradient(to right, #6a11cb 20%, #2575fc 80%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .chat-button-content {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .notification {
+            background-color: #E53935;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            position: absolute;
+            top: -8px;
+            right: -8px;
+        }
+
+        .chat-container {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 320px;
+            height: 480px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            flex-direction: column;
+        }
+
+        .chat-container.active {
+            display: flex;
+        }
+
+        .chat-header {
+            background-image: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%);
+            color: white;
+            padding: 16px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .close-chat {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 16px;
+            overflow-y: auto;
+            background-color: #f5f5f5;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            max-width: 80%;
+        }
+
+        .message.bot {
+            background: white;
+            margin-right: auto;
+            border-radius: 0 12px 12px 12px;
+        }
+
+        .message.user {
+            background-image: linear-gradient(to right, #6a11cb 20%, #2575fc 80%);
+            color: white;
+            margin-left: auto;
+            border-radius: 12px 0 12px 12px;
+        }
+
+        .chat-options {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .option-button {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            text-align: left;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .option-button:hover {
+            background-image: linear-gradient(to right, rgba(106, 17, 203, 0.1), rgba(37, 117, 252, 0.1));
+            border-color: #6a11cb;
+        }
+
+        .modern-footer {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #fff;
+            padding: 60px 0 20px;
+            position: relative;
+            border-top-left-radius: 200px;
+            border-top-right-radius: 0;
+            box-shadow: 0 -10px 20px rgba(106, 17, 203, 0.1);
+        }
+
+        .modern-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(106, 17, 203, 0.2), rgba(37, 117, 252, 0.2));
+            border-top-left-radius: 200px;
+            border-top-right-radius: 0;
+            pointer-events: none;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-section {
+            padding: 0 15px;
+        }
+
+        .footer-logo {
+            max-width: 75px;
+            margin-bottom: 15px;
+            filter: brightness(0) invert(1);
+        }
+
+        .tagline {
+            font-size: 0.8rem;
+            color: #ffffff;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            max-width: 300px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 30px;
+            height: 2px;
+            background: linear-gradient(to right, #fff, rgba(255, 255, 255, 0.5));
+        }
+
+        .footer-section.office p,
+        .footer-section.office a {
+            color: #ffffff;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .footer-section.links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section.links ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section.links ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: padding-left 0.3s ease;
+        }
+
+        .footer-section.links ul li a:hover {
+            padding-left: 8px;
+            color: rgba(255, 255, 255, 0.8);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .newsletter-form {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-radius: 4px 0 0 4px;
+            backdrop-filter: blur(5px);
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .subscribe-btn {
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            color: #6a11cb;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .subscribe-btn:hover {
+            background: #fff;
+            transform: translateX(3px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            color: #fff;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-bottom p {
+            font-size: 0.9rem;
+            color: #ffffff;
+        }
+
+        @media (max-width: 1024px) {
+            .footer-content {
+                max-width: 800px;
+                grid-template-columns: 1fr 1fr;
+                gap: 25px;
+            }
+            
+            .footer-section.brand {
+                grid-column: 1 / -1;
+            }
+
+            .tagline {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                max-width: 600px;
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .footer-section {
+                padding: 0;
+            }
+
+            /* Remove this if you want to keep the same radius on mobile */
+            /* .modern-footer {
+                border-top-left-radius: 200px;
+            } */
+        }
+
+        /* Update these specific styles in your footer CSS */
+
+        /* Standard text size for all footer content */
+        .footer-section p,
+        .footer-section a,
+        .footer-section li a,
+        .footer-section.office p,
+        .footer-section.office a,
+        .tagline,
+        .footer-bottom p {
+            font-size: 0.9rem;
+            color: #ffffff;
+            line-height: 1.5;
+        }
+
+        /* Heading size */
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+            position: relative;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        /* Newsletter input text size */
+        .newsletter-form input {
+            font-size: 0.9rem;
+        }
+
+        .newsletter-form input::placeholder {
+            font-size: 0.9rem;
+        }
+
+        /* Social icons size adjustment */
+        .social-link {
+            font-size: 1.1rem;
+        }
+
+        /* Remove any specific size declarations that might conflict */
+        .tagline {
+            max-width: 300px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section.links ul li a {
+            transition: padding-left 0.3s ease;
+        }
+
+        .footer-bottom p {
+            text-align: center;
+        }
+
+        .header-separator {
+            height: 20px; /* Adjust height as needed */
+        }
+
+        header {
+            margin-bottom: 0; /* Ensure no margin below header */
+        }
+
+        .project-category h2 a {
+            color: #fff; /* Set text color to white */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .project-category h2 a:hover {
+            color: #ffcc00; /* Change color on hover */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-logo">
+                <img id="logo" src="image/logo.svg" alt="Brand Logo">
+                <span>ByteBoost</span>
+            </div>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="service.html">Services</a>
+                <a href="blogging/machine-learning.html">ML</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="list.html">Shortcut List</a>
+            </nav>
+        </nav>
+    </header>
+    <div class="header-separator"></div>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search shortcuts...">
+        <button onclick="searchProjects()">Search</button>
+    </div>
+    <div class="container">
+        <h1>Shortcut Checklist</h1>
+        <div class="project-grid">
+            <div class="project-category">
+                <h2><a href="https://shortcuts.johnsonmarketer.com/chatgpt">ChatGPT</a></h2>
+                <ul>
+                    <li><a href="https://shortcuts.johnsonmarketer.com/chatgpt/quick-reply">Quick Reply</a></li>
+                    <li><a href="https://shortcuts.johnsonmarketer.com/chatgpt/auto-summarize">Auto Summarize</a></li>
+                </ul>
+            </div>
+            <div class="project-category">
+                <h2><a href="https://shortcuts.johnsonmarketer.com/chrome">Chrome</a></h2>
+                <ul>
+                    <li><a href="https://shortcuts.johnsonmarketer.com/chrome/open-tab">Open New Tab</a></li>
+                    <li><a href="https://shortcuts.johnsonmarketer.com/chrome/bookmark-page">Bookmark Page</a></li>
+                </ul>
+            </div>
+            <div class="project-category">
+                <h2><a href="https://shortcuts.johnsonmarketer.com/word">Word</a></h2>
+                <ul>
+                    <li><a href="https://shortcuts.johnsonmarketer.com/word/bold-text">Bold Text</a></li>
+                    <li><a href="https://shortcuts.johnsonmarketer.com/word/insert-table">Insert Table</a></li>
+                </ul>
+            </div>
+            <div class="project-category">
+                <h2><a href="https://shortcuts.johnsonmarketer.com/terminal">Terminal</a></h2>
+                <ul>
+                    <li><a href="https://shortcuts.johnsonmarketer.com/terminal/list-files">List Files</a></li>
+                    <li><a href="https://shortcuts.johnsonmarketer.com/terminal/change-directory">Change Directory</a></li>
+                </ul>
+            </div>
+            <div class="project-category">
+                <h2><a href="https://shortcuts.johnsonmarketer.com/canva">Canva</a></h2>
+                <ul>
+                    <li><a href="https://shortcuts.johnsonmarketer.com/canva/duplicate-element">Duplicate Element</a></li>
+                    <li><a href="https://shortcuts.johnsonmarketer.com/canva/group-elements">Group Elements</a></li>
+                </ul>
+            </div>
+            <div class="project-category">
+                <h2><a href="https://shortcuts.johnsonmarketer.com/macos">macOS</a></h2>
+                <ul>
+                    <li><a href="https://shortcuts.johnsonmarketer.com/macos/screenshot">Take Screenshot</a></li>
+                    <li><a href="https://shortcuts.johnsonmarketer.com/macos/switch-app">Switch App</a></li>
+                </ul>
+            </div>
+            <!-- Add more categories as needed -->
+        </div>
+    </div>
+    <div class="back-to-top" id="backToTopBtn" onclick="scrollToTop()">
+        <img src="https://github.com/Johnson-Frontend/cursor/blob/main/image/uparrow.png?raw=true" alt="Back to Top">
+        <span>Back To Top</span>
+    </div>
+
+    <!-- Chat widget -->
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-button" id="chatButton">
+            <div class="chat-button-content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white">
+                    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+                </svg>
+                <span>Chat</span>
+            </div>
+            <div class="notification">1</div>
+        </div>
+        <div class="chat-container" id="chatContainer">
+            <div class="chat-header">
+                <h3>Software Engineering Services</h3>
+                <button class="close-chat" id="closeChat">×</button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="timestamp">Today</div>
+                <div class="message bot">
+                    Hello! How can I help you today?
+                    <div class="message-info">Automated • Just now</div>
+                </div>
+            </div>
+            <div class="chat-options">
+                <button class="option-button" onclick="sendMessage('I need technical support')">Technical Support</button>
+                <button class="option-button" onclick="sendMessage('I want to learn more about your services')">Learn About Services</button>
+                <button class="option-button" onclick="sendMessage('I have a custom project request')">Custom Project Request</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer will be loaded here -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Load the footer
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+
+        // Chat widget functionality
+        const chatButton = document.getElementById('chatButton');
+        const chatContainer = document.getElementById('chatContainer');
+        const closeChat = document.getElementById('closeChat');
+
+        chatButton.addEventListener('click', () => {
+            chatContainer.classList.toggle('active');
+        });
+
+        closeChat.addEventListener('click', () => {
+            chatContainer.classList.remove('active');
+        });
+
+        function sendMessage(message) {
+            // Implement your send message functionality here
+            console.log(message);
+        }
+
+        document.getElementById('searchInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                searchProjects();
+            }
+        });
+
+        function searchProjects() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const projectCategories = document.querySelectorAll('.project-category');
+            let firstMatch = null;
+
+            projectCategories.forEach(category => {
+                const links = category.querySelectorAll('a');
+                links.forEach(link => {
+                    const text = link.textContent.toLowerCase();
+                    if (text.includes(input) && input !== '') {
+                        link.innerHTML = link.textContent.replace(new RegExp(input, 'gi'), match => `<span class="highlight">${match}</span>`);
+                        if (!firstMatch) {
+                            firstMatch = link; // Store the first match
+                        }
+                    } else {
+                        link.innerHTML = link.textContent; // Remove highlight if not matched
+                    }
+                });
+            });
+
+            if (firstMatch) {
+                firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            document.getElementById('searchInput').value = ''; // Clear the search input
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        const logo = document.getElementById('logo');
+
+        logo.addEventListener('mouseover', () => {
+            logo.src = 'image/gif.gif'; // Change to GIF on hover
+        });
+
+        logo.addEventListener('mouseout', () => {
+            logo.src = 'image/logo.svg'; // Change back to SVG when not hovered
+        });
+    </script>
+</body>
+</html>

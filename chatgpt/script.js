@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const todoInput = document.getElementById('todo-input');
     const addTodoButton = document.getElementById('add-todo');
-    const todoLists = document.querySelectorAll('ul[id^="todo-list-"]');
+    const todoLists = document.querySelectorAll('ol[id^="todo-list-"]');
 
     // Load tasks from localStorage
     todoLists.forEach((list, index) => {

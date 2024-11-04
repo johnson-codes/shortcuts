@@ -1,37 +1,44 @@
 document.addEventListener('DOMContentLoaded', () => {
     const addButton = document.getElementById('add-todo');
     const todoInput = document.getElementById('todo-input');
-    const todoList1 = document.getElementById('todo-list-1');
+    const listSelect = document.getElementById('list-select');
 
     // Load tasks from localStorage
     function loadTasks() {
         const tasks = JSON.parse(localStorage.getItem('chatgptTasks')) || [];
         tasks.forEach(task => {
-            addTaskToList(task.text, task.completed);
+            addTaskToList(task.text, task.completed, task.listId);
         });
     }
 
     // Save tasks to localStorage
     function saveTasks() {
-        const tasks = Array.from(todoList1.children).map(task => ({
-            text: task.querySelector('span').textContent,
-            completed: task.querySelector('input').checked
-        }));
-        localStorage.setItem('chatgptTasks', JSON.stringify(tasks));
+        const allTasks = [];
+        document.querySelectorAll('ol').forEach(list => {
+            const tasks = Array.from(list.children).map(task => ({
+                text: task.querySelector('span').textContent,
+                completed: task.querySelector('input').checked,
+                listId: list.id
+            }));
+            allTasks.push(...tasks);
+        });
+        localStorage.setItem('chatgptTasks', JSON.stringify(allTasks));
     }
 
     // Function to add a new task
     function addTask() {
         const taskText = todoInput.value.trim();
+        const selectedListId = listSelect.value;
         if (taskText !== '') {
-            addTaskToList(taskText, false);
+            addTaskToList(taskText, false, selectedListId);
             todoInput.value = ''; // Clear the input field
             saveTasks(); // Save tasks to localStorage
         }
     }
 
-    // Function to add a task to the list with a delete button and checkbox
-    function addTaskToList(taskText, completed) {
+    // Function to add a task to the specified list with a delete button and checkbox
+    function addTaskToList(taskText, completed, listId) {
+        const todoList = document.getElementById(listId);
         const newTask = document.createElement('li');
         newTask.style.position = 'relative'; // Ensure the list item is positioned relative
         newTask.style.listStyleType = 'none'; // Remove list style
@@ -69,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         deleteButton.style.position = 'absolute';
         deleteButton.style.right = '0'; // Position the "x" at the end
         deleteButton.onclick = function() {
-            todoList1.removeChild(newTask);
+            todoList.removeChild(newTask);
             saveTasks(); // Update localStorage
         };
 
@@ -83,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
             deleteButton.style.display = 'none';
         };
 
-        todoList1.appendChild(newTask);
+        todoList.appendChild(newTask);
     }
 
     // Add event listener for button click

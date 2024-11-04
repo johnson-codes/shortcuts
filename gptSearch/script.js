@@ -6,14 +6,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load tasks from localStorage
     function loadTasks() {
         const tasks = JSON.parse(localStorage.getItem('gptSearchTasks')) || [];
-        tasks.forEach(taskText => {
-            addTaskToList(taskText);
+        tasks.forEach(task => {
+            addTaskToList(task.text, task.completed);
         });
     }
 
     // Save tasks to localStorage
     function saveTasks() {
-        const tasks = Array.from(todoList1.children).map(task => task.textContent.slice(0, -1));
+        const tasks = Array.from(todoList1.children).map(task => ({
+            text: task.querySelector('span').textContent,
+            completed: task.querySelector('input').checked
+        }));
         localStorage.setItem('gptSearchTasks', JSON.stringify(tasks));
     }
 
@@ -21,17 +24,41 @@ document.addEventListener('DOMContentLoaded', () => {
     function addTask() {
         const taskText = todoInput.value.trim();
         if (taskText !== '') {
-            addTaskToList(taskText);
+            addTaskToList(taskText, false);
             todoInput.value = ''; // Clear the input field
             saveTasks(); // Save tasks to localStorage
         }
     }
 
-    // Function to add a task to the list with a delete button
-    function addTaskToList(taskText) {
+    // Function to add a task to the list with a delete button and checkbox
+    function addTaskToList(taskText, completed) {
         const newTask = document.createElement('li');
-        newTask.textContent = taskText;
         newTask.style.position = 'relative'; // Ensure the list item is positioned relative
+        newTask.style.listStyleType = 'none'; // Remove list style
+
+        // Create checkbox
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = completed;
+        checkbox.style.marginRight = '8px'; // Ensure spacing between checkbox and text
+        checkbox.onchange = function() {
+            if (checkbox.checked) {
+                taskSpan.style.fontWeight = 'bold';
+                taskSpan.style.color = 'purple'; // Change to purple
+            } else {
+                taskSpan.style.fontWeight = 'normal';
+                taskSpan.style.color = 'black';
+            }
+            saveTasks(); // Update localStorage
+        };
+
+        // Create task text span
+        const taskSpan = document.createElement('span');
+        taskSpan.textContent = taskText;
+        if (completed) {
+            taskSpan.style.fontWeight = 'bold';
+            taskSpan.style.color = 'purple'; // Change to purple
+        }
 
         // Create delete button
         const deleteButton = document.createElement('span');
@@ -46,6 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
             saveTasks(); // Update localStorage
         };
 
+        newTask.appendChild(checkbox);
+        newTask.appendChild(taskSpan);
         newTask.appendChild(deleteButton);
         newTask.onmouseover = function() {
             deleteButton.style.display = 'inline';

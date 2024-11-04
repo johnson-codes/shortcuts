@@ -1,66 +1,101 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const addButton = document.getElementById('add-todo');
     const todoInput = document.getElementById('todo-input');
-    const addTodoButton = document.getElementById('add-todo');
-    const todoLists = document.querySelectorAll('ol[id^="todo-list-"]');
+    const todoList1 = document.getElementById('todo-list-1');
 
     // Load tasks from localStorage
-    todoLists.forEach((list, index) => {
-        const savedTasks = JSON.parse(localStorage.getItem(`todoList${index + 1}`)) || [];
-        savedTasks.forEach(task => {
-            addTodoItem(list, task, index);
+    function loadTasks() {
+        const tasks = JSON.parse(localStorage.getItem('chatgptTasks')) || [];
+        tasks.forEach(task => {
+            addTaskToList(task.text, task.completed);
         });
-    });
+    }
 
-    const addTask = () => {
-        const task = todoInput.value.trim();
-        if (task) {
-            let added = false;
-            todoLists.forEach((list, index) => {
-                if (!added && list.children.length < 20) {
-                    addTodoItem(list, task, index);
+    // Save tasks to localStorage
+    function saveTasks() {
+        const tasks = Array.from(todoList1.children).map(task => ({
+            text: task.querySelector('span').textContent,
+            completed: task.querySelector('input').checked
+        }));
+        localStorage.setItem('chatgptTasks', JSON.stringify(tasks));
+    }
 
-                    // Save to localStorage
-                    const tasks = JSON.parse(localStorage.getItem(`todoList${index + 1}`)) || [];
-                    tasks.push(task);
-                    localStorage.setItem(`todoList${index + 1}`, JSON.stringify(tasks));
-
-                    added = true;
-                }
-            });
-
-            todoInput.value = ''; // Clear input
+    // Function to add a new task
+    function addTask() {
+        const taskText = todoInput.value.trim();
+        if (taskText !== '') {
+            addTaskToList(taskText, false);
+            todoInput.value = ''; // Clear the input field
+            saveTasks(); // Save tasks to localStorage
         }
-    };
+    }
 
-    addTodoButton.addEventListener('click', addTask);
+    // Function to add a task to the list with a delete button and checkbox
+    function addTaskToList(taskText, completed) {
+        const newTask = document.createElement('li');
+        newTask.style.position = 'relative'; // Ensure the list item is positioned relative
+        newTask.style.listStyleType = 'none'; // Remove list style
 
+        // Create checkbox
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = completed;
+        checkbox.style.marginRight = '8px'; // Ensure spacing between checkbox and text
+        checkbox.onchange = function() {
+            if (checkbox.checked) {
+                taskSpan.style.fontWeight = 'bold';
+                taskSpan.style.color = 'purple'; // Change to purple
+            } else {
+                taskSpan.style.fontWeight = 'normal';
+                taskSpan.style.color = 'black';
+            }
+            saveTasks(); // Update localStorage
+        };
+
+        // Create task text span
+        const taskSpan = document.createElement('span');
+        taskSpan.textContent = taskText;
+        if (completed) {
+            taskSpan.style.fontWeight = 'bold';
+            taskSpan.style.color = 'purple'; // Change to purple
+        }
+
+        // Create delete button
+        const deleteButton = document.createElement('span');
+        deleteButton.textContent = ' x';
+        deleteButton.style.color = 'red';
+        deleteButton.style.cursor = 'pointer';
+        deleteButton.style.display = 'none';
+        deleteButton.style.position = 'absolute';
+        deleteButton.style.right = '0'; // Position the "x" at the end
+        deleteButton.onclick = function() {
+            todoList1.removeChild(newTask);
+            saveTasks(); // Update localStorage
+        };
+
+        newTask.appendChild(checkbox);
+        newTask.appendChild(taskSpan);
+        newTask.appendChild(deleteButton);
+        newTask.onmouseover = function() {
+            deleteButton.style.display = 'inline';
+        };
+        newTask.onmouseout = function() {
+            deleteButton.style.display = 'none';
+        };
+
+        todoList1.appendChild(newTask);
+    }
+
+    // Add event listener for button click
+    addButton.addEventListener('click', addTask);
+
+    // Add event listener for Enter key press
     todoInput.addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
             addTask();
         }
     });
 
-    function addTodoItem(todoList, taskText, listIndex) {
-        const listItem = document.createElement('li');
-        listItem.className = 'todo-item';
-        listItem.textContent = taskText;
-
-        const removeBtn = document.createElement('span');
-        removeBtn.className = 'remove-btn';
-        removeBtn.textContent = 'x';
-        removeBtn.onclick = function() {
-            todoList.removeChild(listItem);
-
-            // Update localStorage
-            const tasks = JSON.parse(localStorage.getItem(`todoList${listIndex + 1}`)) || [];
-            const taskIndex = tasks.indexOf(taskText);
-            if (taskIndex > -1) {
-                tasks.splice(taskIndex, 1);
-                localStorage.setItem(`todoList${listIndex + 1}`, JSON.stringify(tasks));
-            }
-        };
-
-        listItem.appendChild(removeBtn);
-        todoList.appendChild(listItem);
-    }
+    // Load tasks when the page is loaded
+    loadTasks();
 }); 

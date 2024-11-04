@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shortcut Checklist</title>
+    <title>Project Checklist</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="blog.css">
     <link rel="icon" href="https://raw.githubusercontent.com/Johnson-Frontend/cursor/74fbb9994f7e47dabc67bb20cd294f161bcc2fc0/image/favicon.svg" type="image/svg+xml">
@@ -15,7 +15,7 @@
             margin: 0;
             padding: 0;
             color: #fff;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url('https://github.com/Johnson-Frontend/project/blob/main/image/bg.png?raw=true');
+            background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url('image/bg.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -85,7 +85,7 @@
         }
         h1 {
             text-align: center;
-            color: #040404;
+            color: #2d3748;
             margin-bottom: 30px;
             font-size: 2rem;
             font-weight: 600;
@@ -153,15 +153,15 @@
             margin-top: 40px;
         }
         .project-category h2 {
-            color: #fff;
+            color: #ffffff;
             font-size: 1.2rem;
             margin: 0 -15px 10px;
             padding: 10px 15px;
             background-image: linear-gradient(to right, rgba(106, 17, 203, 0.8) 20%, rgba(37, 117, 252, 0.8) 80%);
             border-radius: 8px 8px 0 0;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            font-weight: 500;
-            letter-spacing: 0.5px;
+            font-weight: 500; /* Reduced from 600 if it was set */
+            letter-spacing: 0.5px; /* Added for better readability */
         }
         .project-category h2::after {
             content: none;
@@ -683,86 +683,123 @@
         header {
             margin-bottom: 0; /* Ensure no margin below header */
         }
-
-        .project-category h2 a {
-            color: #fff; /* Set text color to white */
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .project-category h2 a:hover {
-            color: #ffcc00; /* Change color on hover */
-        }
     </style>
 </head>
 <body>
     <header>
         <nav>
             <div class="nav-logo">
-                <img id="logo" src="https://raw.githubusercontent.com/Johnson-Frontend/project/f68cdce450cba72f6748550041e998e7db9e2fd9/image/logo.svg" alt="Brand Logo">
+                <img id="logo" src="image/logo.svg" alt="Brand Logo">
                 <span>ByteBoost</span>
             </div>
             <nav>
                 <a href="index.html">Home</a>
-                <a href="service.html">Service</a>
+                <a href="service.html">Services</a>
                 <a href="blogging/machine-learning.html">ML</a>
                 <a href="about.html">About</a>
                 <a href="contact.html">Contact</a>
-                <a href="list.html">Shortcut List</a>
+                <a href="list.html">Project List</a>
             </nav>
         </nav>
     </header>
     <div class="header-separator"></div>
     <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search shortcuts...">
+        <input type="text" id="searchInput" placeholder="Search projects...">
         <button onclick="searchProjects()">Search</button>
     </div>
     <div class="container">
-        <h1>Shortcut Checklist</h1>
+        <h1>Project Checklist</h1>
         <div class="project-grid">
             <div class="project-category">
-                <h2><a href="https://shortcuts.johnsonmarketer.com/chatgpt">ChatGPT</a></h2>
+                <h2>Hobby</h2>
                 <ul>
-                    <li><a href="https://shortcuts.johnsonmarketer.com/chatgpt/quick-reply">Quick Reply</a></li>
-                    <li><a href="https://shortcuts.johnsonmarketer.com/chatgpt/auto-summarize">Auto Summarize</a></li>
+                    <li><a href="https://johnsonmarketer.com/hobby/dictionary">Online Dictionary</a></li>
+                    <li><a href="https://johnsonmarketer.com/start-veggie">Start a vegetable </a></li>
+                    <li><a href="https://johnsonmarketer.com/photography">Take up photography</a></li>
+                    <li><a href="https://johnsonmarketer.com/local-book">Join a local book </a></li>
+                    <li><a href="https://johnsonmarketer.com/pottery">Try out pottery clas</a></li>
                 </ul>
             </div>
             <div class="project-category">
-                <h2><a href="https://shortcuts.johnsonmarketer.com/chrome">Chrome</a></h2>
+                <h2>Game</h2>
                 <ul>
-                    <li><a href="https://shortcuts.johnsonmarketer.com/chrome/open-tab">Open New Tab</a></li>
-                    <li><a href="https://shortcuts.johnsonmarketer.com/chrome/bookmark-page">Bookmark Page</a></li>
+                    <li><a href="https://johnsonmarketer.com/game/game-dino">Brave Dino</a></li>
+                    <li><a href="https://johnsonmarketer.com/game/tic-tac-toe">Tic Tac Toe</a></li>
+                    <li><a href="https://johnsonmarketer.com/game/game-connect4">Connect Four</a></li>
+                    <li><a href="https://johnsonmarketer.com/game/local-gaming">Organize a local gaming</a></li>
+                    <li><a href="https://johnsonmarketer.com/game/speedrun">Learn to speedrun ae</a></li>
                 </ul>
             </div>
             <div class="project-category">
-                <h2><a href="https://shortcuts.johnsonmarketer.com/word">Word</a></h2>
+                <h2>Work</h2>
                 <ul>
-                    <li><a href="https://shortcuts.johnsonmarketer.com/word/bold-text">Bold Text</a></li>
-                    <li><a href="https://shortcuts.johnsonmarketer.com/word/insert-table">Insert Table</a></li>
+                    <li><a href="https://johnsonmarketer.com/work/image-compressor">Image Compressor</a></li>
+                    <li><a href="https://johnsonmarketer.com/work/calculator">Calculator</a></li>
+                    <li><a href="https://johnsonmarketer.com/work/unit-converter">Unit Converter</a></li>
+                    <li><a href="https://johnsonmarketer.com/work/qr">QR Code Generator</a></li>
+                    <li><a href="https://johnsonmarketer.com/list">To-do List</a></li>
                 </ul>
             </div>
             <div class="project-category">
-                <h2><a href="https://shortcuts.johnsonmarketer.com/terminal">Terminal</a></h2>
+                <h2>Life</h2>
                 <ul>
-                    <li><a href="https://shortcuts.johnsonmarketer.com/terminal/list-files">List Files</a></li>
-                    <li><a href="https://shortcuts.johnsonmarketer.com/terminal/change-directory">Change Directory</a></li>
+                    <li><a href="https://johnsonmarketer.com/work/timer.html">Meditation Timer</a></li>
+                    <li><a href="https://johnsonmarketer.com/daily-meditation">Start a daily medita</a></li>
+                    <li><a href="https://johnsonmarketer.com/language">Learn a new language</a></li>
+                    <li><a href="https://johnsonmarketer.com/solo-travel">Plan a solo travel adv</a></li>
+                    <li><a href="https://johnsonmarketer.com/local-volunteer">Volunteer at a local </a></li>
                 </ul>
             </div>
             <div class="project-category">
-                <h2><a href="https://shortcuts.johnsonmarketer.com/canva">Canva</a></h2>
+                <h2>Finance</h2>
                 <ul>
-                    <li><a href="https://shortcuts.johnsonmarketer.com/canva/duplicate-element">Duplicate Element</a></li>
-                    <li><a href="https://shortcuts.johnsonmarketer.com/canva/group-elements">Group Elements</a></li>
+                    <li><a href="https://projects.johnsonmarketer.com">Create a monthly budget</a></li>
+                    <li><a href="https://projects.johnsonmarketer.com">Set up an emergency fund</a></li>
+                    <li><a href="https://projects.johnsonmarketer.com">Research and start investing</a></li>
+                    <li><a href="https://projects.johnsonmarketer.com">Pay off credit card debt</a></li>
+                    <li><a href="https://projects.johnsonmarketer.com">Meet with a financial advisor</a></li>
                 </ul>
             </div>
             <div class="project-category">
-                <h2><a href="https://shortcuts.johnsonmarketer.com/macos">macOS</a></h2>
+                <h2>Machine Learning</h2>
                 <ul>
-                    <li><a href="https://shortcuts.johnsonmarketer.com/macos/screenshot">Take Screenshot</a></li>
-                    <li><a href="https://shortcuts.johnsonmarketer.com/macos/switch-app">Switch App</a></li>
+                    <li><a href="https://projects.johnsonmarketer.com">Complete an online machin</a></li>
+                    <li><a href="https://projects.johnsonmarketer.com">Implement a neural netwo</a></li>
+                    <li><a href="https://projects.johnsonmarketer.com">Participate in a Kaggle </a></li>
+                    <li><a href="https://projects.johnsonmarketer.com">Build a recommendation system</a></li>
                 </ul>
             </div>
-            <!-- Add more categories as needed -->
+            
+            <!-- New columns added here -->
+            <div class="project-category">
+                <h2>ChatBot</h2>
+                <ul>
+                    <li><a href="https://johnsonmarketer.com/chatbot/adhd">Chatbot</a></li>
+                    <li><a href="https://projects.johnsonmarketer.com">Plan healthy meals</a></li>
+                    <li><a href="https://projects.johnsonmarketer.com">Practice mindfulness</a></li>
+                    <li><a href="https://projects.johnsonmarketer.com">Get regular health checkups</a></li>
+                    <li><a href="https://projects.johnsonmarketer.com">Improve sleep habits</a></li>
+                </ul>
+            </div>
+            <div class="project-category">
+                <h2>Education</h2>
+                <ul>
+                    <li><a href="https://projects.johnsonmarketer.com">Take an online course</a></li>
+                    <li><a href="https://projects.johnsonmarketer.com">Read educational books</a></li>
+                    <li><a href="https://projects.johnsonmarketer.com">Attend workshops</a></li>
+                    <li><a href="https://projects.johnsonmarketer.com">Learn a new skill</a></li>
+                    <li><a href="https://projects.johnsonmarketer.com">Teach others</a></li>
+                </ul>
+            </div>
+            <div class="project-category">
+                <h2>Shortcuts</h2>
+                <ul>
+                    <li><a href="https://shortcuts.johnsonmarketer.com">ChatGpt</a></li>
+                    <li><a href="https://projects.johnsonmarketer.com">Build a personal website</a></li>
+                    <li><a href="https://projects.johnsonmarketer.com">Explore AI and machine learning</a></li>
+                    <li><a href="https://projects.johnsonmarketer.com">Contribute to open source</a></li>
+                </ul>
+            </div>
         </div>
     </div>
     <div class="back-to-top" id="backToTopBtn" onclick="scrollToTop()">
@@ -873,11 +910,11 @@
         const logo = document.getElementById('logo');
 
         logo.addEventListener('mouseover', () => {
-            logo.src = 'https://github.com/Johnson-Frontend/project/blob/main/image/gif.gif?raw=true'; // Change to GIF on hover
+            logo.src = 'image/gif.gif'; // Change to GIF on hover
         });
 
         logo.addEventListener('mouseout', () => {
-            logo.src = 'https://raw.githubusercontent.com/Johnson-Frontend/project/f68cdce450cba72f6748550041e998e7db9e2fd9/image/logo.svg'; // Change back to SVG when not hovered
+            logo.src = 'image/logo.svg'; // Change back to SVG when not hovered
         });
     </script>
 </body>

@@ -3,9 +3,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const todoInput = document.getElementById('todo-input');
     const listSelect = document.getElementById('list-select');
 
+    // Define a unique localStorage key for this script
+    const localStorageKey = 'uniqueChromeTasks';
+
     // Load tasks from localStorage
     function loadTasks() {
-        const tasks = JSON.parse(localStorage.getItem('chromeTasks')) || [];
+        const tasks = JSON.parse(localStorage.getItem(localStorageKey)) || [];
         tasks.forEach(task => {
             addTaskToList(task.text, task.completed, task.listId);
         });
@@ -22,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }));
             allTasks.push(...tasks);
         });
-        localStorage.setItem('chromeTasks', JSON.stringify(allTasks));
+        localStorage.setItem(localStorageKey, JSON.stringify(allTasks));
     }
 
     // Function to add a new task

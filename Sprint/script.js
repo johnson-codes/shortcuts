@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const todoInput = document.getElementById('todo-input');
     const listSelect = document.getElementById('list-select');
 
-    // Define a unique localStorage key for this script
-    const localStorageKey = 'uniqueChromeTasks';
+    // Generate a unique localStorage key for this session
+    const localStorageKey = `tasks_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
     // Load tasks from localStorage
     function loadTasks() {

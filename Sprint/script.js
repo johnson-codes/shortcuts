@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const listSelect = document.getElementById('list-select');
 
     // Generate a unique localStorage key for this session
-    const localStorageKey = `tasks_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const localStorageKey = `sprintTasks_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
     // Load tasks from localStorage
     function loadTasks() {

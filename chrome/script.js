@@ -3,12 +3,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const todoInput = document.getElementById('todo-input');
     const listSelect = document.getElementById('list-select');
 
-    // Generate a unique localStorage key for this session
-    const localStorageKey = `chromeTasks_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    // Use a fixed localStorage key for testing
+    const localStorageKey = 'chromeTasks_test';
 
     // Load tasks from localStorage
     function loadTasks() {
         const tasks = JSON.parse(localStorage.getItem(localStorageKey)) || [];
+        console.log('Loaded tasks:', tasks); // Debugging
         tasks.forEach(task => {
             addTaskToList(task.text, task.completed, task.listId);
         });
@@ -25,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }));
             allTasks.push(...tasks);
         });
+        console.log('Saving tasks:', allTasks); // Debugging
         localStorage.setItem(localStorageKey, JSON.stringify(allTasks));
     }
 
@@ -32,17 +34,26 @@ document.addEventListener('DOMContentLoaded', () => {
     function addTask() {
         const taskText = todoInput.value.trim();
         const selectedListId = listSelect.value;
+        console.log('Adding task:', taskText, 'to list:', selectedListId); // Debugging
         if (taskText !== '') {
             addTaskToList(taskText, false, selectedListId);
             todoInput.value = ''; // Clear the input field
             saveTasks(); // Save tasks to localStorage
+        } else {
+            console.log('Task input is empty.'); // Debugging
         }
     }
 
-    // Function to add a task to the specified list with a delete button and checkbox
+    // Function to add a task to the specified list
     function addTaskToList(taskText, completed, listId) {
         const todoList = document.getElementById(listId);
+        if (!todoList) {
+            console.error('Todo list not found:', listId); // Debugging
+            return;
+        }
+        
         const newTask = document.createElement('li');
+        newTask.className = 'todo-item'; // Add class for styling
         newTask.style.position = 'relative'; // Ensure the list item is positioned relative
         newTask.style.listStyleType = 'none'; // Remove list style
 
@@ -50,34 +61,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.checked = completed;
-        checkbox.style.marginRight = '8px'; // Ensure spacing between checkbox and text
-        checkbox.onchange = function() {
-            if (checkbox.checked) {
-                taskSpan.style.fontWeight = 'bold';
-                taskSpan.style.color = 'purple'; // Change to purple
-            } else {
-                taskSpan.style.fontWeight = 'normal';
-                taskSpan.style.color = 'black';
-            }
-            saveTasks(); // Update localStorage
-        };
 
         // Create task text span
         const taskSpan = document.createElement('span');
         taskSpan.textContent = taskText;
-        if (completed) {
-            taskSpan.style.fontWeight = 'bold';
-            taskSpan.style.color = 'purple'; // Change to purple
-        }
 
         // Create delete button
         const deleteButton = document.createElement('span');
         deleteButton.textContent = ' x';
-        deleteButton.style.color = 'red';
+        deleteButton.className = 'remove-btn'; // Add class for styling
         deleteButton.style.cursor = 'pointer';
-        deleteButton.style.display = 'none';
-        deleteButton.style.position = 'absolute';
-        deleteButton.style.right = '0'; // Position the "x" at the end
         deleteButton.onclick = function() {
             todoList.removeChild(newTask);
             saveTasks(); // Update localStorage
@@ -86,13 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
         newTask.appendChild(checkbox);
         newTask.appendChild(taskSpan);
         newTask.appendChild(deleteButton);
-        newTask.onmouseover = function() {
-            deleteButton.style.display = 'inline';
-        };
-        newTask.onmouseout = function() {
-            deleteButton.style.display = 'none';
-        };
-
         todoList.appendChild(newTask);
     }
 

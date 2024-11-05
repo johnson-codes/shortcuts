@@ -417,7 +417,6 @@
             padding: 60px 0 20px;
             position: relative;
             border-top-left-radius: 200px;
-            border-top-right-radius: 0;
             box-shadow: 0 -10px 20px rgba(106, 17, 203, 0.1);
         }
 
@@ -430,23 +429,36 @@
             bottom: 0;
             background: linear-gradient(135deg, rgba(106, 17, 203, 0.2), rgba(37, 117, 252, 0.2));
             border-top-left-radius: 200px;
-            border-top-right-radius: 0;
             pointer-events: none;
         }
 
         .footer-content {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 0 20px;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
             gap: 30px;
             position: relative;
             z-index: 1;
         }
 
         .footer-section {
+            flex: 1 1 200px;
             padding: 0 15px;
+            box-sizing: border-box;
+        }
+
+        .footer-section.brand {
+            flex: 2 1 300px;
+            text-align: center;
+        }
+
+        .footer-sections {
+            display: flex;
+            flex: 3;
+            justify-content: space-between;
         }
 
         .footer-logo {
@@ -591,34 +603,27 @@
         @media (max-width: 1024px) {
             .footer-content {
                 max-width: 800px;
-                grid-template-columns: 1fr 1fr;
-                gap: 25px;
-            }
-            
-            .footer-section.brand {
-                grid-column: 1 / -1;
+                flex-direction: column;
+                align-items: center;
             }
 
-            .tagline {
-                max-width: 100%;
+            .footer-section {
+                text-align: center;
+                padding: 10px 0;
             }
         }
 
         @media (max-width: 768px) {
             .footer-content {
                 max-width: 600px;
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-            
-            .footer-section {
-                padding: 0;
+                flex-direction: column;
+                align-items: center;
             }
 
-            /* Remove this if you want to keep the same radius on mobile */
-            /* .modern-footer {
-                border-top-left-radius: 200px;
-            } */
+            .footer-section {
+                text-align: center;
+                padding: 10px 0;
+            }
         }
 
         /* Update these specific styles in your footer CSS */
@@ -693,7 +698,7 @@
     <header>
         <nav>
             <div class="nav-logo">
-                <img id="logo" src="https://raw.githubusercontent.com/Johnson-Frontend/project/f68cdce450cba72f6748550041e998e7db9e2fd9/image/logo.svg" alt="Brand Logo">
+                <img id="logo" src="logo.svg" alt="Brand Logo">
                 <span>ByteBoost</span>
             </div>
             <nav>
@@ -717,7 +722,7 @@
             <div class="project-category">
                 <h2>ChatGPT</h2>
                 <ul>
-                    <li><a href="https://shortcuts.johnsonmarketer.com/chatgpt">ChatGPT Shortcut</a></li>
+                    <li><a href="chatgpt">ChatGPT Shortcut</a></li>
                     <li><a href="https://shortcuts.johnsonmarketer.com/gptSearch/index.html">Gpt search</a></li>
 
                     <!-- Add more ChatGPT related links here -->
@@ -785,6 +790,92 @@
     <div class="back-to-top" id="backToTopBtn" onclick="scrollToTop()">
         <img src="https://github.com/Johnson-Frontend/cursor/blob/main/image/uparrow.png?raw=true" alt="Back to Top">
         <span>Back To Top</span>
+    </div>
+
+    <!-- Chat widget -->
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-button" id="chatButton">
+            <div class="chat-button-content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white">
+                    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+                </svg>
+                <span>Chat</span>
+            </div>
+            <div class="notification">1</div>
+        </div>
+        <div class="chat-container" id="chatContainer">
+            <div class="chat-header">
+                <h3>Software Engineering Services</h3>
+                <button class="close-chat" id="closeChat">×</button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="timestamp">Today</div>
+                <div class="message bot">
+                    Hello! How can I help you today?
+                    <div class="message-info">Automated • Just now</div>
+                </div>
+            </div>
+            <div class="chat-options">
+                <button class="option-button" onclick="navigateTo('https://www.johnsonmarketer.com')">Back to Home</button>
+                <button class="option-button" onclick="navigateTo('https://projects.johnsonmarketer.com')">Back to Project Checklist</button>
+                <button class="option-button" onclick="navigateTo('https://shortcuts.johnsonmarketer.com')">Back to Shortcuts</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer content -->
+    <div class="modern-footer">
+        <div class="footer-content">
+            <div class="footer-section brand">
+                <img src="gif.gif" alt="Your Logo" class="footer-logo">
+                <p class="tagline">Crafting innovative solutions in software development. <br>Let's connect! <br> Make a Difference Today!</p>
+            </div>
+            <div class="footer-sections">
+                <div class="footer-section office">
+                    <h3>Dev Stacks</h3>
+                    <ol class="footer-list">
+                        <li><a href="#">JavaScript</a></li>
+                        <li><a href="#">React/Vue</a></li>
+                        <li><a href="#">Node.js</a></li>
+                        <li><a href="#">Python</a></li>
+                        <li><a href="#">Java</a></li>
+                        <li><a href="#">SQL</a></li>
+                        <li><a href="#">APIs</a></li>
+                        <li><a href="#">Docker</a></li>
+                        <li><a href="#">Git</a></li>
+                    </ol>
+                </div>
+                <div class="footer-section links">
+                    <h3>Quick Links</h3>
+                    <ol class="footer-list">
+                        <li><a href="#">Projects</a></li>
+                        <li><a href="#">Web Dev</a></li>
+                        <li><a href="#">Mobile Dev</a></li>
+                        <li><a href="#">UI/UX</a></li>
+                        <li><a href="#">Games</a></li>
+                        <li><a href="#">Database</a></li>
+                        <li><a href="#">Networking</a></li>
+                        <li><a href="#">ML</a></li>
+                    </ol>
+                </div>
+                <div class="footer-section newsletter">
+                    <h3>Connect with Me</h3>
+                    <div class="social-links">
+                        <a href="https://github.com/yourusername" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/in/yourusername" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://wa.me/yourphonenumber" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                    <!-- Newsletter Subscription Form -->
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 Johnson Wang - All Rights Reserved</p>
+        </div>
     </div>
 
     <script>

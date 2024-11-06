@@ -1022,23 +1022,26 @@
                     const text = link.textContent.toLowerCase();
                     if (text.includes(input) && input !== '') {
                         link.innerHTML = link.textContent.replace(new RegExp(input, 'gi'), match => `<span class="highlight">${match}</span>`);
+                        link.setAttribute('tabindex', '0'); // Make link focusable
                         if (!firstMatch) {
                             firstMatch = link; // Store the first match
                         }
                         // Add event listener for Enter key to open link
-                        link.addEventListener('keypress', function(e) {
+                        link.addEventListener('keydown', function(e) {
                             if (e.key === 'Enter') {
                                 window.open(link.href, '_blank');
                             }
                         });
                     } else {
                         link.innerHTML = link.textContent; // Remove highlight if not matched
+                        link.removeAttribute('tabindex'); // Remove tabindex if not matched
                     }
                 });
             });
 
             if (firstMatch) {
                 firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                firstMatch.focus(); // Focus the first match
             }
 
             document.getElementById('searchInput').value = ''; // Clear the search input

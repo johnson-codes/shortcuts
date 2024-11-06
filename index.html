@@ -1025,6 +1025,12 @@
                         if (!firstMatch) {
                             firstMatch = link; // Store the first match
                         }
+                        // Add event listener for Enter key to open link
+                        link.addEventListener('keypress', function(e) {
+                            if (e.key === 'Enter') {
+                                window.open(link.href, '_blank');
+                            }
+                        });
                     } else {
                         link.innerHTML = link.textContent; // Remove highlight if not matched
                     }

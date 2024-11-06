@@ -105,4 +105,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load tasks when the page is loaded
     loadTasks();
+
+    // Function to save theme to local storage
+    function saveTheme(theme) {
+        localStorage.setItem('mlTheme', theme);
+    }
+
+    // Function to load theme from local storage
+    function loadTheme() {
+        const theme = localStorage.getItem('mlTheme');
+        if (theme) {
+            applyTheme(theme);
+        }
+    }
+
+    // Function to apply the theme
+    function applyTheme(theme) {
+        document.body.className = theme; // Assuming themes are applied via body class
+    }
+
+    // Example usage: when a new theme is selected
+    document.getElementById('themeSelector').addEventListener('change', (event) => {
+        const selectedTheme = event.target.value;
+        applyTheme(selectedTheme);
+        saveTheme(selectedTheme);
+    });
+
+    // Call loadTheme on page load
+    window.addEventListener('load', loadTheme);
 }); 

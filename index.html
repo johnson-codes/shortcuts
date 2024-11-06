@@ -83,7 +83,7 @@
         }
         .container {
             max-width: 900px;
-            margin: 40px auto;
+            margin: 15px auto;
             padding: 30px;
             background-color: rgba(255, 255, 255, 0.5);
             border-radius: 12px;
@@ -804,13 +804,13 @@
             </nav>
         </nav>
     </header>
-    <div class="header-separator"></div>
-    <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search Johnson's shortcuts...">
-        <button onclick="searchProjects()">Search</button>
+    <img src="https://raw.githubusercontent.com/Johnson-Frontend/project/refs/heads/main/image/goggle.png" alt="Hero Image" class="hero-image" style="display: block; margin: 0 auto; width: 100%; height: auto; object-fit: cover; object-position: center;">
+    <div class="search-container" style="position: absolute; top: calc(50% - 10px); left: 50%; transform: translate(-50%, -50%); z-index: 2; text-align: center; display: flex; align-items: center; width: 80%; max-width: 480px; margin: 0;">
+        <input type="text" id="searchInput" placeholder="Search Johnson's projects..." style="flex: 1; padding: 10px; font-size: 16px; border: 2px solid #667eea; border-radius: 20px 0 0 20px; outline: none; font-family: 'Poppins', sans-serif;">
+        <button onclick="searchProjects()" style="padding: 11px 25px; font-size: 16px; background-image: linear-gradient(to right, #6a11cb 20%, #2575fc 80%); color: white; border: none; margin-left: 2px; border-radius: 0 20px 20px 0; cursor: pointer; font-family: 'Poppins', sans-serif;">Search</button>
     </div>
     <div class="container">
-        <h1>Shortcut Checklist</h1>
+        <h1>Project Checklist</h1>
         <div class="project-grid">
             <div class="project-category">
                 <h2>ChatGPT</h2>

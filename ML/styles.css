@@ -5,8 +5,8 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
     padding: 0;
+    background-color: #f0f0f0;
     background-image: url('https://github.com/Johnson-Frontend/home/blob/main/image/calculator.png?raw=true');
     background-size: cover;
     background-position: center;
@@ -15,15 +15,14 @@ body {
 }
 
 .wrapper {
-    width: 80%;
-    max-width: 1200px;
+    max-width: 1600px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
+    margin: 150px;
 }
 
 .main-container {

@@ -93,6 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         todoList.appendChild(newTask);
+
+        // Scroll the new task into view
+        newTask.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
 
     // Add event listeners for both add buttons

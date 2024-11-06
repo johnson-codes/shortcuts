@@ -26,7 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Function to add a new task
-    function addTask() {
+    function addTask(wrapperIndex) {
+        const todoInput = document.getElementById(`todo-input-${wrapperIndex}`);
+        const listSelect = document.getElementById(`list-select-${wrapperIndex}`);
         const taskText = todoInput.value.trim();
         const selectedListId = listSelect.value;
         if (taskText !== '') {
@@ -93,13 +95,25 @@ document.addEventListener('DOMContentLoaded', () => {
         todoList.appendChild(newTask);
     }
 
-    // Add event listener for button click
-    addButton.addEventListener('click', addTask);
+    // Add event listeners for both add buttons
+    document.getElementById('add-todo-1').addEventListener('click', () => {
+        addTask(1);
+    });
 
-    // Add event listener for Enter key press
-    todoInput.addEventListener('keypress', (event) => {
+    document.getElementById('add-todo-2').addEventListener('click', () => {
+        addTask(2);
+    });
+
+    // Add event listeners for Enter key press on both input fields
+    document.getElementById('todo-input-1').addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
-            addTask();
+            addTask(1);
+        }
+    });
+
+    document.getElementById('todo-input-2').addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            addTask(2);
         }
     });
 

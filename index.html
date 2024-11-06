@@ -740,6 +740,47 @@
                 transform: scale(1);
             }
         }
+
+        @keyframes typing {
+            0% {
+                content: "S";
+            }
+            10% {
+                content: "Se";
+            }
+            20% {
+                content: "Sea";
+            }
+            30% {
+                content: "Sear";
+            }
+            40% {
+                content: "Searc";
+            }
+            50% {
+                content: "Search";
+            }
+            60% {
+                content: "Search ";
+            }
+            70% {
+                content: "Search J";
+            }
+            80% {
+                content: "Search Jo";
+            }
+            90% {
+                content: "Search Joh";
+            }
+            100% {
+                content: "Search Johnson's shortcuts...";
+            }
+        }
+
+        #searchInput::placeholder {
+            color: grey;
+            animation: typing 3s steps(30, end) infinite;
+        }
     </style>
 </head>
 <body>
@@ -763,7 +804,7 @@
     </header>
     <div class="header-separator"></div>
     <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search Johnson's projects...">
+        <input type="text" id="searchInput" placeholder="Search Johnson's shortcuts...">
         <button onclick="searchProjects()">Search</button>
     </div>
     <div class="container">
@@ -998,6 +1039,25 @@
         function navigateTo(url) {
             window.location.href = url;
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const placeholderText = "Search Johnson's shortcuts...";
+            let index = 0;
+
+            function typeEffect() {
+                if (index < placeholderText.length) {
+                    searchInput.setAttribute('placeholder', placeholderText.substring(0, index + 1));
+                    index++;
+                    setTimeout(typeEffect, 100); // Adjust typing speed here
+                } else {
+                    index = 0; // Reset index to loop the animation
+                    setTimeout(typeEffect, 2000); // Wait before restarting the animation
+                }
+            }
+
+            typeEffect();
+        });
     </script>
 </body>
 </html>

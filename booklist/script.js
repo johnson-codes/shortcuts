@@ -105,4 +105,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load tasks when the page is loaded
     loadTasks();
+
+    // Check for any local storage usage
+    if (typeof(Storage) !== "undefined") {
+        // Example of local storage usage
+        // localStorage.setItem("key", "value");
+        // localStorage.getItem("key");
+    }
 }); 

@@ -45,48 +45,71 @@
 
         /* Style the todo-input-container */
         .todo-input-container {
-            background-color: #fafafa; /* Light grey background */
-            padding: 20px; /* Add padding for spacing */
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-top: 20px; /* Add top margin for spacing */
+            max-width: 300px; /* Ensure it doesn't exceed this width */
+            width: 100%; /* Allow it to take full width of its parent */
+            background-color: #ffffff; /* White background for contrast */
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow for depth */
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: stretch; /* Stretch items to fill the container */
+            gap: 10px; /* Space between elements */
+            box-sizing: border-box; /* Include padding in width calculation */
         }
 
         /* Style the input field */
-        #todo-input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px; /* Space between input and select */
+        #todo-input-1, #todo-input-2 {
+            width: 100%; /* Ensure it takes full width of the container */
+            padding: 12px; /* Increased padding for comfort */
             border: 1px solid #ccc;
             border-radius: 4px;
+            font-size: 16px; /* Larger font for readability */
+            transition: border 0.3s ease; /* Smooth transition for focus */
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
+
+        #todo-input-1:focus, #todo-input-2:focus {
+            border-color: #6a11cb; /* Change border color on focus */
+            outline: none; /* Remove default outline */
         }
 
         /* Style the select dropdown */
-        #list-select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px; /* Space between select and button */
+        #list-select-1, #list-select-2 {
+            width: 100%; /* Ensure it takes full width of the container */
+            padding: 12px; /* Increased padding for comfort */
             border: 1px solid #ccc;
             border-radius: 4px;
+            font-size: 16px; /* Larger font for readability */
+            background-color: #f9f9f9; /* Light background for dropdown */
+            transition: border 0.3s ease; /* Smooth transition for focus */
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
+
+        #list-select-1:focus, #list-select-2:focus {
+            border-color: #6a11cb; /* Change border color on focus */
+            outline: none; /* Remove default outline */
         }
 
         /* Style the add button */
-        #add-todo {
-            width: 100%;
-            padding: 10px;
+        #add-todo-1, #add-todo-2 {
+            padding: 12px; /* Increased padding for comfort */
             background: linear-gradient(to right, #6a11cb, #2575fc);
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            transition: background 0.3s ease;
+            font-size: 16px; /* Larger font for readability */
+            transition: background 0.3s ease, transform 0.2s ease; /* Smooth transitions */
         }
 
-        #add-todo:hover {
+        #add-todo-1:hover, #add-todo-2:hover {
             background: linear-gradient(to right, #5a0ebc, #1f63e0);
+            transform: translateY(-2px); /* Slight lift effect on hover */
+        }
+
+        #add-todo-1:active, #add-todo-2:active {
+            transform: translateY(0); /* Reset lift effect on click */
         }
 
         /* Chatbot styles */
@@ -122,8 +145,8 @@
         }
 
         .wrapper {
-            width: 75%;
-            max-width: 1300px;
+            width: 85%; /* Ensure it takes full width of the parent */
+            max-width: 1300px; /* Maintain the maximum width */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -133,18 +156,20 @@
             padding: 20px;
             margin-top: 50px;
             margin-bottom: 50px;
+            overflow: hidden; /* Prevent overflow */
         }
 
         .main-container {
+            flex: 1; /* Allow it to grow and fill available space */
             display: flex;
             justify-content: space-between;
             align-items: stretch;
-            flex: 1;
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 20px;
             margin-right: 20px;
+            box-sizing: border-box; /* Include padding in width calculation */
         }
 
         .todo-list-container {
@@ -228,7 +253,6 @@
                 </div>
             </div>
             <div class="todo-input-container">
-                <h5>Add a shortcut</h5>
                 <input type="text" id="todo-input-1" placeholder="Add a new shortcut...">
                 <select id="list-select-1">
                     <option value="todo-list-1">Define goals</option>
@@ -284,12 +308,11 @@
                 </div>
             </div>
             <div class="todo-input-container">
-                <h5>Add a shortcut</h5>
                 <input type="text" id="todo-input-2" placeholder="Add a new shortcut...">
                 <select id="list-select-2">
                     <option value="todo-list-5">Feature Engineering</option>
-                    <option value="todo-list-6">split and train</option>
-                    <option value="todo-list-7">Evaluate Model </option>
+                    <option value="todo-list-6">Split and Train</option>
+                    <option value="todo-list-7">Evaluate Model</option>
                     <option value="todo-list-8">Tune Hyperp</option>
                 </select>
                 <button id="add-todo-2">Add</button>

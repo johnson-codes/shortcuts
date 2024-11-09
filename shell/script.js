@@ -3,9 +3,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const todoInput = document.getElementById('todo-input');
     const listSelect = document.getElementById('list-select');
 
+    // Use a unique key for localStorage
+    const storageKey = 'shellAppTasks';
+
     // Load tasks from localStorage
     function loadTasks() {
-        const tasks = JSON.parse(localStorage.getItem('powerPointTasks')) || [];
+        const tasks = JSON.parse(localStorage.getItem(storageKey)) || [];
         tasks.forEach(task => {
             addTaskToList(task.text, task.completed, task.listId);
         });
@@ -22,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }));
             allTasks.push(...tasks);
         });
-        localStorage.setItem('powerPointTasks', JSON.stringify(allTasks));
+        localStorage.setItem(storageKey, JSON.stringify(allTasks));
     }
 
     // Function to add a new task
@@ -59,13 +62,13 @@ document.addEventListener('DOMContentLoaded', () => {
             saveTasks(); // Update localStorage
         };
 
-        // Create task text span
+        // Create task text span with editing capability
         const taskSpan = document.createElement('span');
         taskSpan.textContent = taskText;
-        if (completed) {
-            taskSpan.style.fontWeight = 'bold';
-            taskSpan.style.color = 'purple'; // Change to purple
-        }
+        taskSpan.contentEditable = true; // Allow editing
+        taskSpan.onblur = function() {
+            saveTasks(); // Save changes after editing
+        };
 
         // Create delete button
         const deleteButton = document.createElement('span');
@@ -76,8 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
         deleteButton.style.position = 'absolute';
         deleteButton.style.right = '0'; // Position the "x" at the end
         deleteButton.onclick = function() {
-            todoList.removeChild(newTask);
-            saveTasks(); // Update localStorage
+            if (confirm('Are you sure you want to delete this task?')) {
+                todoList.removeChild(newTask);
+                saveTasks(); // Update localStorage
+            }
         };
 
         newTask.appendChild(checkbox);
@@ -92,6 +97,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
         todoList.appendChild(newTask);
     }
+
+    // Use event delegation for better performance
+    document.querySelectorAll('ol').forEach(list => {
+        list.addEventListener('click', (event) => {
+            if (event.target.tagName === 'INPUT' && event.target.type === 'checkbox') {
+                const taskSpan = event.target.nextElementSibling;
+                if (event.target.checked) {
+                    taskSpan.style.fontWeight = 'bold';
+                    taskSpan.style.color = 'purple';
+                } else {
+                    taskSpan.style.fontWeight = 'normal';
+                    taskSpan.style.color = 'black';
+                }
+                saveTasks();
+            }
+        });
+    });
 
     // Add event listener for button click
     addButton.addEventListener('click', addTask);

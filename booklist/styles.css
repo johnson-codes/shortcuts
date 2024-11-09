@@ -5,8 +5,8 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
     padding: 0;
+    background-color: #f0f0f0;
     background-image: url('https://github.com/Johnson-Frontend/home/blob/main/image/calculator.png?raw=true');
     background-size: cover;
     background-position: center;
@@ -15,15 +15,14 @@ body {
 }
 
 .wrapper {
-    width: 80%;
-    max-width: 1200px;
+    max-width: 1600px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
+    margin: 150px;
 }
 
 .main-container {
@@ -56,15 +55,65 @@ body {
 }
 
 .todo-input-container {
-    max-width: 200px;
-    background-color: #e9e9e9;
-    border-radius: 8px;
-    padding: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    background: linear-gradient(to right, #6a11cb, #2575fc); /* Purple-blue gradient */
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
+    gap: 15px; /* Space between elements */
+    color: white; /* Text color */
+    width: 350px; /* Set a fixed width for consistency */
+    margin: 20px auto; /* Center the container with margin */
+    transition: transform 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.todo-input-container:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+}
+
+.todo-input-container input[type="text"],
+.todo-input-container select,
+.todo-input-container button {
+    width: 100%;
+    padding: 12px; /* Adjusted padding for a larger click area */
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.todo-input-container input[type="text"] {
+    background: #fff;
+    color: #333;
+    font-weight: bold;
+}
+
+.todo-input-container input[type="text"]::placeholder {
+    color: #bbb; /* Placeholder color */
+}
+
+.todo-input-container select {
+    background: #fff;
+    color: #333;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.todo-input-container button {
+    background: linear-gradient(to right, #6a11cb, #2575fc); /* Purple-blue gradient */
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.todo-input-container button:hover {
+    background: linear-gradient(to right, #5a0fbf, #1f6fe0); /* Darker gradient on hover */
+    color: #fff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 h3 {

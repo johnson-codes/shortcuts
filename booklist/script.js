@@ -26,7 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Function to add a new task
-    function addTask() {
+    function addTask(wrapperIndex) {
+        const todoInput = document.getElementById(`todo-input-${wrapperIndex}`);
+        const listSelect = document.getElementById(`list-select-${wrapperIndex}`);
         const taskText = todoInput.value.trim();
         const selectedListId = listSelect.value;
         if (taskText !== '') {
@@ -91,25 +93,61 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         todoList.appendChild(newTask);
+
+        // Scroll the new task into view
+        newTask.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
 
-    // Add event listener for button click
-    addButton.addEventListener('click', addTask);
+    // Add event listeners for both add buttons
+    document.getElementById('add-todo-1').addEventListener('click', () => {
+        addTask(1);
+    });
 
-    // Add event listener for Enter key press
-    todoInput.addEventListener('keypress', (event) => {
+    document.getElementById('add-todo-2').addEventListener('click', () => {
+        addTask(2);
+    });
+
+    // Add event listeners for Enter key press on both input fields
+    document.getElementById('todo-input-1').addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
-            addTask();
+            addTask(1);
+        }
+    });
+
+    document.getElementById('todo-input-2').addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            addTask(2);
         }
     });
 
     // Load tasks when the page is loaded
     loadTasks();
 
-    // Check for any local storage usage
-    if (typeof(Storage) !== "undefined") {
-        // Example of local storage usage
-        // localStorage.setItem("key", "value");
-        // localStorage.getItem("key");
+    // Function to save theme to local storage
+    function saveTheme(theme) {
+        localStorage.setItem('mlTheme', theme);
     }
+
+    // Function to load theme from local storage
+    function loadTheme() {
+        const theme = localStorage.getItem('mlTheme');
+        if (theme) {
+            applyTheme(theme);
+        }
+    }
+
+    // Function to apply the theme
+    function applyTheme(theme) {
+        document.body.className = theme; // Assuming themes are applied via body class
+    }
+
+    // Example usage: when a new theme is selected
+    document.getElementById('themeSelector').addEventListener('change', (event) => {
+        const selectedTheme = event.target.value;
+        applyTheme(selectedTheme);
+        saveTheme(selectedTheme);
+    });
+
+    // Call loadTheme on page load
+    window.addEventListener('load', loadTheme);
 }); 

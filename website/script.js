@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load tasks from localStorage
     function loadTasks() {
-        const tasks = JSON.parse(localStorage.getItem('gptSearchTasks')) || [];
+        const tasks = JSON.parse(localStorage.getItem('websiteTasks')) || [];
         tasks.forEach(task => {
             addTaskToList(task.text, task.completed, task.listId);
         });
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }));
             allTasks.push(...tasks);
         });
-        localStorage.setItem('gptSearchTasks', JSON.stringify(allTasks));
+        localStorage.setItem('websiteTasks', JSON.stringify(allTasks));
     }
 
     // Function to add a new task

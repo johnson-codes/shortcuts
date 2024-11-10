@@ -323,6 +323,13 @@
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Focus on the input field when the page loads
+            const todoInput1 = document.getElementById('todo-input-1');
+            if (todoInput1) {
+                todoInput1.focus();
+            }
+
+            // Existing chat widget code
             const chatButton = document.getElementById('chatButton');
             const chatContainer = document.getElementById('chatContainer');
             const closeChat = document.getElementById('closeChat');

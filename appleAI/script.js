@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load saved checkbox states
     loadCheckboxStates();
 
+    // Load saved tasks
+    loadTasks();
+
     // Existing chat widget code
     const chatButton = document.getElementById('chatButton');
     const chatContainer = document.getElementById('chatContainer');
@@ -29,6 +32,28 @@ document.addEventListener('DOMContentLoaded', function() {
             saveCheckboxState(this);
         });
     });
+
+    // Add task event listeners
+    document.getElementById('add-todo-1').addEventListener('click', function() {
+        addTask('todo-input-1', 'list-select-1');
+    });
+
+    document.getElementById('add-todo-2').addEventListener('click', function() {
+        addTask('todo-input-2', 'list-select-2');
+    });
+
+    // Add Enter key event listeners for input fields
+    document.getElementById('todo-input-1').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            addTask('todo-input-1', 'list-select-1');
+        }
+    });
+
+    document.getElementById('todo-input-2').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            addTask('todo-input-2', 'list-select-2');
+        }
+    });
 });
 
 function saveCheckboxState(checkbox) {
@@ -43,6 +68,49 @@ function loadCheckboxStates() {
         const checkbox = document.getElementById(id);
         if (checkbox) {
             checkbox.checked = checked;
+        }
+    }
+}
+
+function addTask(inputId, selectId) {
+    const input = document.getElementById(inputId);
+    const listId = document.getElementById(selectId).value;
+    const list = document.getElementById(listId);
+
+    if (input.value.trim() !== '') {
+        const listItem = document.createElement('li');
+        listItem.textContent = input.value;
+        list.appendChild(listItem);
+
+        // Save tasks to local storage
+        saveTasks();
+
+        input.value = ''; // Clear the input field
+    }
+}
+
+function saveTasks() {
+    const lists = document.querySelectorAll('ol');
+    const tasks = {};
+
+    lists.forEach(list => {
+        tasks[list.id] = Array.from(list.children).map(item => item.textContent);
+    });
+
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function loadTasks() {
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || {};
+
+    for (const [listId, items] of Object.entries(tasks)) {
+        const list = document.getElementById(listId);
+        if (list) {
+            items.forEach(text => {
+                const listItem = document.createElement('li');
+                listItem.textContent = text;
+                list.appendChild(listItem);
+            });
         }
     }
 }

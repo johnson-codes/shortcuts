@@ -3,36 +3,351 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apple AI</title>
+    <title>Machine Learning Shortcut</title>
+    <link rel="icon" href="https://raw.githubusercontent.com/Johnson-Frontend/cursor/cf649bc033ba7d80b3fc64cce5acd6d3dd59e6b4/image/favicon.svg" type="image/png">
+    <style>
+        /* Style the checkbox */
+        input[type="checkbox"] {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid black;
+            border-radius: 3px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+            position: relative;
+        }
+
+        /* Style the checkmark with a brighter gradient from light purple to light blue */
+        input[type="checkbox"]:checked {
+            background: linear-gradient(to right, #d1a3ff, #85c1e9);
+            border: none;
+        }
+
+        /* Align text and checkbox */
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 0; /* Remove padding to align with container */
+            margin-left: -25px; /* Reduce margin to remove extra space */
+        }
+
+        /* Brighten the container backgrounds */
+        .todo-list-container, .todo-input-container {
+            
+            background-color: #fafafa; /* Even lighter grey */
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style the todo-input-container */
+        .todo-input-container {
+            max-width: 300px; /* Ensure it doesn't exceed this width */
+            width: 100%; /* Allow it to take full width of its parent */
+            background-color: #ffffff; /* White background for contrast */
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow for depth */
+            display: flex;
+            flex-direction: column;
+            align-items: stretch; /* Stretch items to fill the container */
+            gap: 10px; /* Space between elements */
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
+
+        /* Style the input field */
+        #todo-input-1, #todo-input-2 {
+            width: 100%; /* Ensure it takes full width of the container */
+            padding: 12px; /* Increased padding for comfort */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px; /* Larger font for readability */
+            transition: border 0.3s ease; /* Smooth transition for focus */
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
+
+        #todo-input-1:focus, #todo-input-2:focus {
+            border-color: #6a11cb; /* Change border color on focus */
+            outline: none; /* Remove default outline */
+        }
+
+        /* Style the select dropdown */
+        #list-select-1, #list-select-2 {
+            width: 100%; /* Ensure it takes full width of the container */
+            padding: 12px; /* Increased padding for comfort */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px; /* Larger font for readability */
+            background-color: #f9f9f9; /* Light background for dropdown */
+            transition: border 0.3s ease; /* Smooth transition for focus */
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
+
+        #list-select-1:focus, #list-select-2:focus {
+            border-color: #6a11cb; /* Change border color on focus */
+            outline: none; /* Remove default outline */
+        }
+
+        /* Style the add button */
+        #add-todo-1, #add-todo-2 {
+            padding: 12px; /* Increased padding for comfort */
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px; /* Larger font for readability */
+            transition: background 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+        }
+
+        #add-todo-1:hover, #add-todo-2:hover {
+            background: linear-gradient(to right, #5a0ebc, #1f63e0);
+            transform: translateY(-2px); /* Slight lift effect on hover */
+        }
+
+        #add-todo-1:active, #add-todo-2:active {
+            transform: translateY(0); /* Reset lift effect on click */
+        }
+
+        /* Chatbot styles */
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .chat-button {
+            background-image: linear-gradient(to right, #6a11cb 20%, #2575fc 80%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .wrapper-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 100px; /* Increased space between the wrapper containers */
+            margin-top: 150px;
+            margin-bottom: 50px;
+
+        }
+
+        .wrapper {
+            width: 85%; /* Ensure it takes full width of the parent */
+            max-width: 1300px; /* Maintain the maximum width */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            overflow: hidden; /* Prevent overflow */
+        }
+
+        .main-container {
+            flex: 1; /* Allow it to grow and fill available space */
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-right: 20px;
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
+
+        .todo-list-container {
+            flex: 1;
+            margin-right: 10px;
+            background-color: #e9e9e9;
+            border-radius: 8px;
+            padding: 10px;
+            
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+
+        .todo-input-container {
+            max-width: 200px;
+            background-color: #e9e9e9;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Update h5 text color to white */
+        .todo-list-container h5 {
+            color: white;
+            text-align: left; /* Align text to the left */
+        }
+
+        /* If you want to align other text elements, add similar rules */
+        .todo-list-container h2 {
+            text-align: left; /* Align text to the left */
+        }
+    </style>
+</head>
+<body style="background-image: url('../image/dic.png'); background-size: cover; background-color: rgba(255, 255, 255, 0.5); background-blend-mode: overlay;">
+    <div class="wrapper-container">
+        <div class="wrapper">
+            <div class="main-container">
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Text</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-1" start="1">
+                        <!-- Tasks will be added here -->
+                    </ol>
+                </div>
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Image</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-2" start="21">
+                        <!-- Tasks will be added here -->
+                    </ol>
+                </div>
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Audio</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-3" start="41">
+                        <!-- Tasks will be added here -->
+                    </ol>
+                </div>
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Video</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-4" start="61">
+                        <!-- Tasks will be added here -->
+                    </ol>
+                </div>
+            </div>
+            <div class="todo-input-container">
+                <input type="text" id="todo-input-1" placeholder="Add a new task...">
+                <select id="list-select-1">
+                    <option value="todo-list-1">Text</option>
+                    <option value="todo-list-2">Image</option>
+                    <option value="todo-list-3">Audio</option>
+                    <option value="todo-list-4">Video</option>
+                </select>
+                <button id="add-todo-1">Add Task</button>
+            </div>
+        </div>
+        
+        <div class="wrapper">
+            <div class="main-container">
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Text</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-5" start="81">
+                        <!-- Tasks will be added here -->
+                    </ol>
+                </div>
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Image</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-6" start="101">
+                        <!-- Tasks will be added here -->
+                    </ol>
+                </div>
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Audio</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-7" start="121">
+                        <!-- Tasks will be added here -->
+                    </ol>
+                </div>
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Video</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-8" start="141">
+                        <!-- Tasks will be added here -->
+                    </ol>
+                </div>
+            </div>
+            <div class="todo-input-container">
+                <input type="text" id="todo-input-2" placeholder="Add a new task...">
+                <select id="list-select-2">
+                    <option value="todo-list-5">Text</option>
+                    <option value="todo-list-6">Image</option>
+                    <option value="todo-list-7">Audio</option>
+                    <option value="todo-list-8">Video</option>
+                </select>
+                <button id="add-todo-2">Add Task</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Load the list from local storage
-            const savedList = localStorage.getItem('appleAIList');
-            if (savedList) {
-                document.getElementById('list').innerHTML = savedList;
+            // Focus on the input field when the page loads
+            const todoInput1 = document.getElementById('todo-input-1');
+            if (todoInput1) {
+                todoInput1.focus();
             }
 
-            document.getElementById('addButton').addEventListener('click', function() {
-                const newItem = document.getElementById('newItem').value;
-                if (newItem) {
-                    const list = document.getElementById('list');
-                    const listItem = document.createElement('li');
-                    listItem.textContent = newItem;
-                    list.appendChild(listItem);
+            // Existing chat widget code
+            const chatButton = document.getElementById('chatButton');
+            const chatContainer = document.getElementById('chatContainer');
+            const closeChat = document.getElementById('closeChat');
 
-                    // Save the updated list to local storage
-                    localStorage.setItem('appleAIList', list.innerHTML);
-                }
+            // Toggle chat container visibility
+            chatButton.addEventListener('click', function() {
+                chatContainer.classList.toggle('active');
+            });
+
+            // Close chat container
+            closeChat.addEventListener('click', function() {
+                chatContainer.classList.remove('active');
             });
         });
+
+        function navigateTo(url) {
+            window.location.href = url;
+        }
     </script>
-</head>
-<body>
-    <h1>Apple AI List</h1>
-    <input type="text" id="newItem" placeholder="Add new item">
-    <button id="addButton">Add</button>
-    <ul id="list">
-        <!-- List items will be added here -->
-    </ul>
 </body>
 </html>

@@ -94,4 +94,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load tasks when the page is loaded
     loadTasks();
-}); 
+
+    // Load saved checkbox states
+    loadCheckboxStates();
+
+    // Add event listeners to checkboxes
+    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            saveCheckboxState(this);
+        });
+    });
+});
+
+function saveCheckboxState(checkbox) {
+    const checkboxStates = JSON.parse(localStorage.getItem('chromeCheckboxStates')) || {};
+    checkboxStates[checkbox.id] = checkbox.checked;
+    localStorage.setItem('chromeCheckboxStates', JSON.stringify(checkboxStates));
+}
+
+function loadCheckboxStates() {
+    const checkboxStates = JSON.parse(localStorage.getItem('chromeCheckboxStates')) || {};
+    for (const [id, checked] of Object.entries(checkboxStates)) {
+        const checkbox = document.getElementById(id);
+        if (checkbox) {
+            checkbox.checked = checked;
+        }
+    }
+} 

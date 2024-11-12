@@ -82,10 +82,14 @@ function addTask(inputId, selectId) {
         listItem.textContent = input.value;
         list.appendChild(listItem);
 
+        console.log(`Added task: ${input.value} to list: ${listId}`);
+
         // Save tasks to local storage
         saveTasks();
 
         input.value = ''; // Clear the input field
+    } else {
+        console.log('No task entered.');
     }
 }
 
@@ -98,6 +102,7 @@ function saveTasks() {
     });
 
     localStorage.setItem('tasks', JSON.stringify(tasks));
+    console.log('Tasks saved to local storage:', tasks);
 }
 
 function loadTasks() {
@@ -113,6 +118,7 @@ function loadTasks() {
             });
         }
     }
+    console.log('Tasks loaded from local storage:', tasks);
 }
 
 function navigateTo(url) {

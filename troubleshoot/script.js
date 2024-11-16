@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const listSelect = document.getElementById('list-select');
 
     // Use a consistent localStorage key
-    const localStorageKey = `sprintTasks_${window.location.hostname}`;
+    const localStorageKey = `sprintTasks_${window.location.hostname}_${window.location.pathname}`;
 
     // Load tasks from localStorage
     function loadTasks() {
@@ -108,4 +108,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load tasks when the page is loaded
     loadTasks();
-}); 
+});

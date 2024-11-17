@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load tasks from localStorage
     function loadTasks() {
-        const tasks = JSON.parse(localStorage.getItem('powerPointTasks')) || [];
+        const tasks = JSON.parse(localStorage.getItem('lmTasks')) || [];
         tasks.forEach(task => {
             addTaskToList(task.text, task.completed, task.listId);
         });
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }));
             allTasks.push(...tasks);
         });
-        localStorage.setItem('powerPointTasks', JSON.stringify(allTasks));
+        localStorage.setItem('lmTasks', JSON.stringify(allTasks));
     }
 
     // Function to add a new task
@@ -105,4 +105,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load tasks when the page is loaded
     loadTasks();
-}); 
+});

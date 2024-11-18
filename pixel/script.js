@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const listSelect = document.getElementById('list-select');
 
     // Use a unique key for localStorage
-    const storageKey = 'spotlightAppTasks'; // Updated key
+    const storageKey = 'pixelAppTasks'; // Updated key
 
     // Load tasks from localStorage
     function loadTasks() {

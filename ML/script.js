@@ -120,6 +120,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Add event listeners for the new add button
+    document.getElementById('add-todo-3').addEventListener('click', () => {
+        addTask(3);
+    });
+
+    // Add event listeners for Enter key press on the new input field
+    document.getElementById('todo-input-3').addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            addTask(3);
+        }
+    });
+
     // Load tasks when the page is loaded
     loadTasks();
 
@@ -150,4 +162,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Call loadTheme on page load
     window.addEventListener('load', loadTheme);
-}); 
+});

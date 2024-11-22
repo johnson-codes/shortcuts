@@ -69,6 +69,30 @@ document.addEventListener('DOMContentLoaded', () => {
             taskSpan.style.color = 'purple'; // Change to purple
         }
 
+        // Make task text editable on click
+        taskSpan.onclick = function() {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = taskSpan.textContent;
+            input.style.width = 'calc(100% - 40px)'; // Adjust width to fit within the list item
+            newTask.replaceChild(input, taskSpan);
+            input.focus();
+
+            input.onblur = function() {
+                taskSpan.textContent = input.value;
+                newTask.replaceChild(taskSpan, input);
+                saveTasks(); // Update localStorage
+            };
+
+            input.onkeypress = function(event) {
+                if (event.key === 'Enter') {
+                    taskSpan.textContent = input.value;
+                    newTask.replaceChild(taskSpan, input);
+                    saveTasks(); // Update localStorage
+                }
+            };
+        };
+
         // Create delete button
         const deleteButton = document.createElement('span');
         deleteButton.textContent = ' x';

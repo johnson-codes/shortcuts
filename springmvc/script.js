@@ -1,7 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const addButton = document.getElementById('add-todo');
-    const todoInput = document.getElementById('todo-input');
-    const listSelect = document.getElementById('list-select');
+    const addButton1 = document.getElementById('add-todo-1');
+    const todoInput1 = document.getElementById('todo-input-1');
+    const listSelect1 = document.getElementById('list-select-1');
+    const addButton2 = document.getElementById('add-todo-2');
+    const todoInput2 = document.getElementById('todo-input-2');
+    const listSelect2 = document.getElementById('list-select-2');
 
     // Use a unique key for localStorage
     const storageKey = `pixelAppTasks_${new Date().toISOString().split('T')[0]}`; // Updated key
@@ -29,12 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Function to add a new task
-    function addTask() {
-        const taskText = todoInput.value.trim();
-        const selectedListId = listSelect.value;
+    function addTask(input, select) {
+        const taskText = input.value.trim();
+        const selectedListId = select.value;
         if (taskText !== '') {
             addTaskToList(taskText, false, selectedListId);
-            todoInput.value = ''; // Clear the input field
+            input.value = ''; // Clear the input field
             saveTasks(); // Save tasks to localStorage
         }
     }
@@ -116,12 +119,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Add event listener for button click
-    addButton.addEventListener('click', addTask);
+    addButton1.addEventListener('click', () => addTask(todoInput1, listSelect1));
+    addButton2.addEventListener('click', () => addTask(todoInput2, listSelect2));
 
     // Add event listener for Enter key press
-    todoInput.addEventListener('keypress', (event) => {
+    todoInput1.addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
-            addTask();
+            addTask(todoInput1, listSelect1);
+        }
+    });
+    todoInput2.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            addTask(todoInput2, listSelect2);
         }
     });
 

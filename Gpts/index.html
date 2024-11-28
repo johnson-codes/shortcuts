@@ -342,6 +342,36 @@
             closeChat.addEventListener('click', function() {
                 chatContainer.classList.remove('active');
             });
+
+            const addTodoButton = document.getElementById('add-todo');
+            const todoInput = document.getElementById('todo-input');
+            const listSelect = document.getElementById('list-select');
+
+            addTodoButton.addEventListener('click', function() {
+                const todoText = todoInput.value.trim();
+                const selectedList = listSelect.value;
+
+                if (todoText !== '') {
+                    const todoItem = document.createElement('li');
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    const label = document.createElement('label');
+                    label.textContent = todoText;
+
+                    todoItem.appendChild(checkbox);
+                    todoItem.appendChild(label);
+
+                    const todoList = document.getElementById(selectedList);
+                    todoList.appendChild(todoItem);
+
+                    // Generate a unique key for local storage
+                    const uniqueKey = `${selectedList}-${Date.now()}`;
+                    localStorage.setItem(uniqueKey, todoText);
+
+                    todoInput.value = '';
+                    todoInput.focus();
+                }
+            });
         });
 
         function navigateTo(url) {
@@ -349,4 +379,4 @@
         }
     </script>
 </body>
-</html> 
+</html>

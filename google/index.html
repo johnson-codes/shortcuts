@@ -205,6 +205,23 @@
         .todo-list-container h2 {
             text-align: left; /* Align text to the left */
         }
+
+        /* Style for the remove button */
+        .remove-btn {
+            display: none;
+            margin-left: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            padding: 2px 5px;
+        }
+
+        /* Show the remove button on hover */
+        li:hover .remove-btn {
+            display: inline-block;
+        }
     </style>
 </head>
 <body style="background-image: url('../image/dic.png'); background-size: cover; background-color: rgba(255, 255, 255, 0.5); background-blend-mode: overlay;">
@@ -588,19 +605,35 @@
                 list.addEventListener('dblclick', function(event) {
                     const target = event.target;
                     if (target.tagName === 'LI') {
-                        const currentText = target.textContent;
+                        const currentText = target.textContent.replace('Remove', '').trim();
                         const input = document.createElement('input');
                         input.type = 'text';
                         input.value = currentText;
                         input.addEventListener('blur', function() {
                             target.textContent = input.value;
+                            addRemoveButton(target);
                         });
                         target.textContent = '';
                         target.appendChild(input);
                         input.focus();
                     }
                 });
+
+                // Add remove button to each list item
+                list.querySelectorAll('li').forEach(item => {
+                    addRemoveButton(item);
+                });
             });
+
+            function addRemoveButton(item) {
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Remove';
+                removeBtn.className = 'remove-btn';
+                removeBtn.addEventListener('click', function() {
+                    item.remove();
+                });
+                item.appendChild(removeBtn);
+            }
         });
 
         function navigateTo(url) {

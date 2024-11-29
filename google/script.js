@@ -127,6 +127,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Make pre-added tasks editable and removable
+    document.querySelectorAll('ol[id^="todo-list-"] li').forEach(item => {
+        const taskText = item.textContent.trim();
+        item.textContent = '';
+        addTaskToList(taskText, false, item.parentElement.id);
+    });
+
     // Load tasks when the page is loaded
     loadTasks();
 });

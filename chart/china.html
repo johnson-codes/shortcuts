@@ -1,0 +1,93 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+      body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      #regions_div {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: #ffffff;
+        padding: 20px;
+      }
+    </style>
+    <script type="text/javascript">
+      google.charts.load('current', {
+        'packages':['geochart'],
+        'mapsApiKey': 'YOUR_MAPS_API_KEY' // Make sure to replace with a valid API key
+      });
+      google.charts.setOnLoadCallback(drawRegionsMap);
+
+      function drawRegionsMap() {
+        var data = google.visualization.arrayToDataTable([
+          ['Province', 'Value'],
+          ['CN-11', 500], // Beijing
+          ['CN-31', 600], // Shanghai
+          ['CN-44', 700], // Guangdong
+          ['CN-33', 450], // Zhejiang
+          ['CN-51', 300], // Sichuan
+          ['CN-53', 350], // Yunnan
+          ['CN-12', 400], // Tianjin
+          ['CN-13', 250], // Hebei
+          ['CN-14', 320], // Shanxi
+          ['CN-15', 280], // Inner Mongolia
+          ['CN-21', 500], // Liaoning
+          ['CN-22', 450], // Jilin
+          ['CN-23', 300], // Heilongjiang
+          ['CN-32', 550], // Jiangsu
+          ['CN-34', 400], // Anhui
+          ['CN-35', 370], // Fujian
+          ['CN-36', 330], // Jiangxi
+          ['CN-37', 480], // Shandong
+          ['CN-41', 420], // Henan
+          ['CN-42', 390], // Hubei
+          ['CN-43', 360], // Hunan
+          ['CN-45', 340], // Guangxi
+          ['CN-46', 310], // Hainan
+          ['CN-50', 290], // Chongqing
+          ['CN-52', 270], // Guizhou
+          ['CN-54', 260], // Tibet
+          ['CN-61', 240], // Shaanxi
+          ['CN-62', 230], // Gansu
+          ['CN-63', 220], // Qinghai
+          ['CN-64', 210], // Ningxia
+          ['CN-65', 200]  // Xinjiang
+        ]);
+
+        var options = {
+          region: 'CN', // This is the ISO code for China
+          resolution: 'provinces', // Displaying the regions (provinces) within China
+          colorAxis: {colors: ['#e0f7fa', '#006064']}, // Color gradient from light to dark
+          backgroundColor: '#f0f0f0',
+          datalessRegionColor: '#f5f5f5',
+          defaultColor: '#f5f5f5',
+          enableRegionInteractivity: true,
+          magnifyingGlass: {enable: true, zoomFactor: 7.5},
+          displayMode: 'regions',
+          tooltip: {textStyle: {color: '#333'}, showColorCode: true},
+          legend: 'none',
+          markerOpacity: 1.0,
+          keepAspectRatio: true,
+          stroke: '#000000', // Border color
+          strokeWidth: 1    // Border width
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="regions_div" style="width: 1200px; height: 500px;"></div>
+  </body>
+</html>

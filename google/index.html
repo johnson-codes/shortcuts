@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GPTs Shortcut</title>
-    <link rel="stylesheet" href="../chatgpt/styles.css">
+    <title>Machine Learning Shortcut</title>
     <link rel="icon" href="https://raw.githubusercontent.com/Johnson-Frontend/cursor/cf649bc033ba7d80b3fc64cce5acd6d3dd59e6b4/image/favicon.svg" type="image/png">
     <style>
         /* Style the checkbox */
         input[type="checkbox"] {
             appearance: none;
-            width: 17px;
+            width: 16px;
             height: 16px;
             border: 2px solid black;
             border-radius: 3px;
@@ -30,10 +29,14 @@
         li {
             display: flex;
             align-items: center;
+            justify-content: flex-start;
+            padding-left: 0; /* Remove padding to align with container */
+            margin-left: -25px; /* Reduce margin to remove extra space */
         }
 
         /* Brighten the container backgrounds */
         .todo-list-container, .todo-input-container {
+            
             background-color: #fafafa; /* Even lighter grey */
             padding: 10px;
             border-radius: 5px;
@@ -42,48 +45,71 @@
 
         /* Style the todo-input-container */
         .todo-input-container {
-            background-color: #fafafa; /* Light grey background */
-            padding: 20px; /* Add padding for spacing */
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-top: 20px; /* Add top margin for spacing */
+            max-width: 300px; /* Ensure it doesn't exceed this width */
+            width: 100%; /* Allow it to take full width of its parent */
+            background-color: #ffffff; /* White background for contrast */
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow for depth */
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: stretch; /* Stretch items to fill the container */
+            gap: 10px; /* Space between elements */
+            box-sizing: border-box; /* Include padding in width calculation */
         }
 
         /* Style the input field */
-        #todo-input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px; /* Space between input and select */
+        #todo-input-1, #todo-input-2 {
+            width: 100%; /* Ensure it takes full width of the container */
+            padding: 12px; /* Increased padding for comfort */
             border: 1px solid #ccc;
             border-radius: 4px;
+            font-size: 16px; /* Larger font for readability */
+            transition: border 0.3s ease; /* Smooth transition for focus */
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
+
+        #todo-input-1:focus, #todo-input-2:focus {
+            border-color: #6a11cb; /* Change border color on focus */
+            outline: none; /* Remove default outline */
         }
 
         /* Style the select dropdown */
-        #list-select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px; /* Space between select and button */
+        #list-select-1, #list-select-2 {
+            width: 100%; /* Ensure it takes full width of the container */
+            padding: 12px; /* Increased padding for comfort */
             border: 1px solid #ccc;
             border-radius: 4px;
+            font-size: 16px; /* Larger font for readability */
+            background-color: #f9f9f9; /* Light background for dropdown */
+            transition: border 0.3s ease; /* Smooth transition for focus */
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
+
+        #list-select-1:focus, #list-select-2:focus {
+            border-color: #6a11cb; /* Change border color on focus */
+            outline: none; /* Remove default outline */
         }
 
         /* Style the add button */
-        #add-todo {
-            width: 100%;
-            padding: 10px;
+        #add-todo-1, #add-todo-2 {
+            padding: 12px; /* Increased padding for comfort */
             background: linear-gradient(to right, #6a11cb, #2575fc);
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            transition: background 0.3s ease;
+            font-size: 16px; /* Larger font for readability */
+            transition: background 0.3s ease, transform 0.2s ease; /* Smooth transitions */
         }
 
-        #add-todo:hover {
+        #add-todo-1:hover, #add-todo-2:hover {
             background: linear-gradient(to right, #5a0ebc, #1f63e0);
+            transform: translateY(-2px); /* Slight lift effect on hover */
+        }
+
+        #add-todo-1:active, #add-todo-2:active {
+            transform: translateY(0); /* Reset lift effect on click */
         }
 
         /* Chatbot styles */
@@ -108,212 +134,426 @@
             position: relative;
         }
 
-        .chat-button-content {
+        .wrapper-container {
             display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .notification {
-            background-color: #E53935;
-            color: white;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            position: absolute;
-            top: -8px;
-            right: -8px;
-        }
-
-        .chat-container {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 320px;
-            height: 480px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
             flex-direction: column;
-            overflow: hidden;
-        }
-
-        .chat-container.active {
-            display: flex;
-        }
-
-        .chat-header {
-            background-image: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%);
-            color: white;
-            padding: 16px;
-            border-radius: 12px 12px 0 0;
-            display: flex;
             align-items: center;
+            gap: 100px; /* Increased space between the wrapper containers */
+            margin-top: 150px;
+            margin-bottom: 50px;
+
+        }
+
+        .wrapper {
+            width: 85%; /* Ensure it takes full width of the parent */
+            max-width: 1300px; /* Maintain the maximum width */
+            display: flex;
             justify-content: space-between;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            overflow: hidden; /* Prevent overflow */
         }
 
-        .close-chat {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            padding: 0;
+        .main-container {
+            flex: 1; /* Allow it to grow and fill available space */
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-right: 20px;
+            box-sizing: border-box; /* Include padding in width calculation */
         }
 
-        .chat-messages {
-            flex-grow: 1;
-            padding: 16px;
+        .todo-list-container {
+            flex: 1;
+            margin-right: 10px;
+            background-color: #e9e9e9;
+            border-radius: 8px;
+            padding: 10px;
+            
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             overflow-y: auto;
-            background-color: #f5f5f5;
         }
 
-        .message {
-            margin-bottom: 10px;
-            padding: 10px 12px;
-            border-radius: 12px;
-            max-width: 80%;
-        }
-
-        .message.bot {
-            background: white;
-            margin-right: auto;
-            border-radius: 0 12px 12px 12px;
-        }
-
-        .message.user {
-            background-image: linear-gradient(to right, #6a11cb 20%, #2575fc 80%);
-            color: white;
-            margin-left: auto;
-            border-radius: 12px 0 12px 12px;
-        }
-
-        .chat-options {
-            padding: 16px;
+        .todo-input-container {
+            max-width: 200px;
+            background-color: #e9e9e9;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            justify-content: center;
         }
 
-        .option-button {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background: white;
-            color: black;
-            cursor: pointer;
-            text-align: left;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        .option-button:hover {
-            background-image: linear-gradient(to right, rgba(106, 17, 203, 0.1), rgba(37, 117, 252, 0.1));
-            border-color: #6a11cb;
-        }
-
-        /* Update the styles for heading containers */
-        .todo-list-container > div {
-            background: linear-gradient(to right, #7b1fa2, #42a5f5); /* Brighter gradient background */
-            color: white; /* White text color */
-            padding: 10px;
-            border-radius: 5px;
-        }
-
-        /* Set h3 text color to white */
-        h3 {
+        /* Update h5 text color to white */
+        .todo-list-container h5 {
             color: white;
+            text-align: left; /* Align text to the left */
+        }
+
+        /* If you want to align other text elements, add similar rules */
+        .todo-list-container h2 {
+            text-align: left; /* Align text to the left */
         }
     </style>
 </head>
 <body style="background-image: url('../image/dic.png'); background-size: cover; background-color: rgba(255, 255, 255, 0.5); background-blend-mode: overlay;">
-    <div class="wrapper">
-        <div class="main-container">
-            <div class="todo-list-container">
-                <div style="background-color: #e0f7fa; color: #006064; padding: 10px; border-radius: 5px;">
-                    <h3 style="text-align: center;">Productivity</h3>
-                    <h2 id="date-header"></h2>
+    <div class="wrapper-container">
+        <!-- Web-Based Products -->
+        <div class="wrapper">
+            <div class="main-container">
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Web-Based Products</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-1" start="1">
+                        <li>Google Search</li>
+                        <li>Google Alerts</li>
+                        <li>Google Assistant</li>
+                        <li>Gemini</li>
+                        <li>Google Books</li>
+                        <li>Google Dataset Search</li>
+                        <li>Google Flights</li>
+                        <li>Google Images</li>
+                        <li>Google Shopping</li>
+                        <li>Google Travel</li>
+                        <li>Google Videos</li>
+                        <li>Google Lens</li>
+                    </ol>
                 </div>
-                <hr class="separator">
-                <ol id="todo-list-1" start="1">
-                    <!-- Tasks will be added here -->
-                </ol>
-            </div>
-            <div class="todo-list-container">
-                <div style="background-color: #fce4ec; color: #880e4f; padding: 10px; border-radius: 5px;">
-                    <h3 style="text-align: center;">Search Information</h3>
-                    <h2 id="date-header"></h2>
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Media & Creative Works</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-2" start="21">
+                        <li>Google Arts & Culture</li>
+                        <li>Google Books</li>
+                        <li>Google Finance</li>
+                        <li>Google News</li>
+                        <li>Google Patents</li>
+                        <li>Google Scholar</li>
+                        <li>YouTube</li>
+                    </ol>
                 </div>
-                <hr class="separator">
-                <ol id="todo-list-2" start="21">
-                    <!-- Tasks will be added here -->
-                </ol>
-            </div>
-            <div class="todo-list-container">
-                <div style="background-color: #fff3e0; color: #e65100; padding: 10px; border-radius: 5px;">
-                    <h3 style="text-align: center;">Communication</h3>
-                    <h2 id="date-header"></h2>
-                </div                <hr class="separator">
-                <ol id="todo-list-3" start="41">
-                    <!-- Tasks will be added here -->
-                </ol>
-            </div>
-            <div class="todo-list-container">
-                <div style="background-color: #e8f5e9; color: #1b5e20; padding: 10px; border-radius: 5px;">
-                    <h3 style="text-align: center;">Entertainment</h3>
-                    <h2 id="date-header"></h2>
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Advertising Services</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-3" start="41">
+                        <li>Google Ads</li>
+                        <li>AdMob</li>
+                        <li>Google AdSense</li>
+                        <li>Google Ad Manager</li>
+                        <li>Google Marketing Platform</li>
+                        <li>Google Tag Manager</li>
+                        <li>Local Service Ads</li>
+                    </ol>
                 </div>
-                <hr class="separator">
-                <ol id="todo-list-4" start="61">
-                    <!-- Tasks will be added here -->
-                </ol>
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Communication & Publishing</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-4" start="61">
+                        <li>Blogger</li>
+                        <li>FeedBurner</li>
+                        <li>Google Chat</li>
+                        <li>Google Saved</li>
+                        <li>Google Classroom</li>
+                        <li>Google Fonts</li>
+                        <li>Google Groups</li>
+                        <li>Google Meet</li>
+                        <li>Google Voice</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="todo-input-container">
+                <input type="text" id="todo-input-1" placeholder="Add a new book...">
+                <select id="list-select-1">
+                    <option value="todo-list-1">Web-Based Products</option>
+                    <option value="todo-list-2">Media & Creative Works</option>
+                    <option value="todo-list-3">Advertising Services</option>
+                    <option value="todo-list-4">Communication & Publishing</option>
+                </select>
+                <button id="add-todo-1">Add</button>
             </div>
         </div>
-        <div class="todo-input-container">
-            <input type="text" id="todo-input" placeholder="Add a new GPT shortcut...">
-            <select id="list-select">
-                <option value="todo-list-1">Productivity</option>
-                <option value="todo-list-2">Search Information</option>
-                <option value="todo-list-3">Communication</option>
-                <option value="todo-list-4">Entertainment</option>
-            </select>
-            <button id="add-todo">Add</button>
+        
+        <!-- Productivity Tools -->
+        <div class="wrapper">
+            <div class="main-container">
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Productivity Tools</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-5" start="81">
+                        <li>Gmail</li>
+                        <li>Google Account</li>
+                        <li>Google Calendar</li>
+                        <li>Google Charts</li>
+                        <li>Google Docs</li>
+                        <li>Google Sheets</li>
+                        <li>Google Slides</li>
+                        <li>Google Drawings</li>
+                        <li>Google Forms</li>
+                        <li>Google Sites</li>
+                        <li>Google Keep</li>
+                        <li>Google Drive</li>
+                        <li>Google Translate</li>
+                    </ol>
+                </div>
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Map & Navigation Products</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-6" start="101">
+                        <li>Google Maps</li>
+                        <li>Google My Maps</li>
+                        <li>Google Earth</li>
+                        <li>Google Mars</li>
+                        <li>Google Moon</li>
+                        <li>Google Street View</li>
+                        <li>Google Sky</li>
+                        <li>Google Santa Tracker</li>
+                    </ol>
+                </div>
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Statistical Tools</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-7" start="121">
+                        <li>Google Analytics</li>
+                        <li>Google Ngram Viewer</li>
+                        <li>Google Public Data Explorer</li>
+                        <li>TensorFlow</li>
+                        <li>Google Trends</li>
+                        <li>Google Activity Report</li>
+                        <li>Looker Studio</li>
+                    </ol>
+                </div>
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Business-Oriented Products</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-8" start="141">
+                        <li>Google Workspace</li>
+                        <li>Google Business Profile</li>
+                        <li>Google Tables</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="todo-input-container">
+                <input type="text" id="todo-input-2" placeholder="Add a new book...">
+                <select id="list-select-2">
+                    <option value="todo-list-5">Productivity Tools</option>
+                    <option value="todo-list-6">Map & Navigation Products</option>
+                    <option value="todo-list-7">Statistical Tools</option>
+                    <option value="todo-list-8">Business-Oriented Products</option>
+                </select>
+                <button id="add-todo-2">Add</button>
+            </div>
         </div>
-    </div>
 
-    <!-- Chat widget -->
-    <div class="chat-widget" id="chatWidget">
-        <div class="chat-button" id="chatButton">
-            <div class="chat-button-content">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white">
-                    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
-                </svg>
-                <span>Chat</span>
-            </div>
-            <div class="notification">1</div>
-        </div>
-        <div class="chat-container" id="chatContainer">
-            <div class="chat-header">
-                <h3>GPT Services</h3>
-                <button class="close-chat" id="closeChat">×</button>
-            </div>
-            <div class="chat-messages" id="chatMessages">
-                <div class="timestamp">Today</div>
-                <div class="message bot">
-                    Hello! How can I help you today?
-                    <div class="message-info">Automated • Just now</div>
+        <!-- Healthcare Products -->
+        <div class="wrapper">
+            <div class="main-container">
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Healthcare Products</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-9" start="161">
+                        <li>Google ARDA Project</li>
+                        <li>Google Care Studio</li>
+                        <li>Google Fit</li>
+                        <li>Health Connect</li>
+                    </ol>
+                </div>
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Developer Tools</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-10" start="181">
+                        <li>AMP</li>
+                        <li>Google App Engine</li>
+                        <li>Google Developers</li>
+                        <li>Dart</li>
+                        <li>Flutter</li>
+                        <li>Go</li>
+                        <li>OpenSocial</li>
+                        <li>Google PageSpeed Tools</li>
+                        <li>Google Web Toolkit</li>
+                        <li>Google Search Console Sitemap</li>
+                        <li>GN</li>
+                        <li>Gerrit</li>
+                        <li>Googletest</li>
+                        <li>Bazel</li>
+                        <li>FlatBuffers</li>
+                        <li>Protocol Buffers</li>
+                        <li>Shaderc</li>
+                        <li>American Fuzzy Lop</li>
+                        <li>Google Guava</li>
+                        <li>Google Closure Tools</li>
+                        <li>Google Collaboratory</li>
+                    </ol>
+                </div>
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Security Tools</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-11" start="201">
+                        <li>reCAPTCHA</li>
+                        <li>Google Safe Browsing</li>
+                        <li>Titan</li>
+                        <li>Titan Security Key</li>
+                        <li>Titan M</li>
+                        <li>Titan M2</li>
+                        <li>Titan C</li>
+                    </ol>
+                </div>
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Operating Systems</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-12" start="221">
+                        <li>Android</li>
+                        <li>Wear OS</li>
+                        <li>Android Auto</li>
+                        <li>Android TV</li>
+                        <li>Google Cast</li>
+                        <li>ChromeOS</li>
+                        <li>Fitbit OS</li>
+                        <li>Fuchsia</li>
+                    </ol>
                 </div>
             </div>
-            <div class="chat-options">
-                <button class="option-button" onclick="navigateTo('https://www.johnsonmarketer.com')">Back to Home</button>
-                <button class="option-button" onclick="navigateTo('https://projects.johnsonmarketer.com')">Back to Project Checklist</button>
-                <button class="option-button" onclick="navigateTo('https://shortcuts.johnsonmarketer.com')">Back to Shortcuts</button>
+            <div class="todo-input-container">
+                <input type="text" id="todo-input-3" placeholder="Add a new book...">
+                <select id="list-select-3">
+                    <option value="todo-list-9">Healthcare Products</option>
+                    <option value="todo-list-10">Developer Tools</option>
+                    <option value="todo-list-11">Security Tools</option>
+                    <option value="todo-list-12">Operating Systems</option>
+                </select>
+                <button id="add-todo-3">Add</button>
+            </div>
+        </div>
+
+        <!-- Desktop Applications -->
+        <div class="wrapper">
+            <div class="main-container">
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Desktop Applications</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-13" start="241">
+                        <li>AdWords Editor</li>
+                        <li>Drive File Stream</li>
+                        <li>Google Chrome</li>
+                        <li>Google IME</li>
+                        <li>Google Japanese Input</li>
+                        <li>Android Studio</li>
+                        <li>Google Web Designer</li>
+                        <li>Backup and Sync</li>
+                        <li>Tilt Brush</li>
+                        <li>Google Trends Screensaver</li>
+                        <li>Chrome Remote Desktop</li>
+                    </ol>
+                </div>
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Mobile Applications</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-14" start="261">
+                        <li>Refer to "List of Android apps by Google."</li>
+                    </ol>
+                </div>
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Hardware</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-15" start="281">
+                        <li>Google Pixel</li>
+                        <li>Google Nest</li>
+                        <li>Fitbit</li>
+                        <li>Stadia Controller</li>
+                        <li>Jamboard</li>
+                        <li>Nexus series</li>
+                        <li>Pixel series</li>
+                        <li>Pixelbook</li>
+                        <li>Nest series</li>
+                        <li>Pixel Visual Core</li>
+                        <li>Titan series</li>
+                        <li>Google Tensor (G1–G3)</li>
+                    </ol>
+                </div>
+                <div class="todo-list-container">
+                    <div style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white; padding: 10px; border-radius: 5px;">
+                        <h5 style="text-align: center;">Services</h5>
+                        <h2 id="date-header"></h2>
+                    </div>
+                    <hr class="separator">
+                    <ol id="todo-list-16" start="301">
+                        <li>Google Cloud Platform</li>
+                        <li>Google Crisis Response</li>
+                        <li>Google Fi Wireless</li>
+                        <li>Google Get Your Business Online</li>
+                        <li>Google Public DNS</li>
+                        <li>Google Person Finder</li>
+                        <li>Google Firebase</li>
+                        <li>Google Cast</li>
+                        <li>Google Pay</li>
+                        <li>YouTube TV</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="todo-input-container">
+                <input type="text" id="todo-input-4" placeholder="Add a new book...">
+                <select id="list-select-4">
+                    <option value="todo-list-13">Desktop Applications</option>
+                    <option value="todo-list-14">Mobile Applications</option>
+                    <option value="todo-list-15">Hardware</option>
+                    <option value="todo-list-16">Services</option>
+                </select>
+                <button id="add-todo-4">Add</button>
             </div>
         </div>
     </div>
@@ -322,9 +562,9 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Focus on the input field when the page loads
-            const todoInput = document.getElementById('todo-input');
-            if (todoInput) {
-                todoInput.focus();
+            const todoInput1 = document.getElementById('todo-input-1');
+            if (todoInput1) {
+                todoInput1.focus();
             }
 
             // Existing chat widget code
@@ -341,9 +581,6 @@
             closeChat.addEventListener('click', function() {
                 chatContainer.classList.remove('active');
             });
-
-            const uniqueKey = 'gpt_shortcuts_' + new Date().getTime();
-            localStorage.setItem(uniqueKey, JSON.stringify([]));
         });
 
         function navigateTo(url) {

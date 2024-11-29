@@ -1,5 +1,30 @@
 <html>
   <head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f0f2f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      #regions_div {
+        width: 90%;
+        max-width: 1200px;
+        height: 500px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        background-color: #fff;
+        padding: 20px;
+      }
+    </style>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {
@@ -16,7 +41,7 @@
           ['Canada', 500],
           ['France', 600],
           ['RU', 700],
-          ['China', 800],
+          ['China', 1800],
           ['India', 900],
           ['Australia', 100],
           ['Japan', 150],
@@ -24,7 +49,9 @@
           ['South Africa', 350]
         ]);
 
-        var options = {};
+        var options = {
+          colorAxis: {colors: ['#dcedc8', '#33691e']}
+        };
 
         var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
 
@@ -33,7 +60,6 @@
     </script>
   </head>
   <body>
-    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-    </div>
+    <div id="regions_div"></div>
   </body>
 </html>

@@ -581,6 +581,26 @@
             closeChat.addEventListener('click', function() {
                 chatContainer.classList.remove('active');
             });
+
+            // Make each task editable on double-click
+            const todoLists = document.querySelectorAll('ol[id^="todo-list-"]');
+            todoLists.forEach(list => {
+                list.addEventListener('dblclick', function(event) {
+                    const target = event.target;
+                    if (target.tagName === 'LI') {
+                        const currentText = target.textContent;
+                        const input = document.createElement('input');
+                        input.type = 'text';
+                        input.value = currentText;
+                        input.addEventListener('blur', function() {
+                            target.textContent = input.value;
+                        });
+                        target.textContent = '';
+                        target.appendChild(input);
+                        input.focus();
+                    }
+                });
+            });
         });
 
         function navigateTo(url) {

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const addButton = document.getElementById('add-todo');
-    const todoInput = document.getElementById('todo-input');
-    const listSelect = document.getElementById('list-select');
+    const addButtons = document.querySelectorAll('[id^=add-todo]');
+    const todoInputs = document.querySelectorAll('[id^=todo-input]');
+    const listSelects = document.querySelectorAll('[id^=list-select]');
     const localStorageKey = 'geminiTasks_' + new Date().getTime();
 
     // Load tasks from localStorage
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Function to add a new task
-    function addTask() {
+    function addTask(todoInput, listSelect) {
         const taskText = todoInput.value.trim();
         const selectedListId = listSelect.value;
         if (taskText !== '') {
@@ -63,6 +63,25 @@ document.addEventListener('DOMContentLoaded', () => {
         // Create task text span
         const taskSpan = document.createElement('span');
         taskSpan.textContent = taskText;
+        taskSpan.ondblclick = function() {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = taskSpan.textContent;
+            input.onblur = function() {
+                taskSpan.textContent = input.value;
+                newTask.replaceChild(taskSpan, input);
+                saveTasks(); // Update localStorage
+            };
+            input.onkeypress = function(event) {
+                if (event.key === 'Enter') {
+                    taskSpan.textContent = input.value;
+                    newTask.replaceChild(taskSpan, input);
+                    saveTasks(); // Update localStorage
+                }
+            };
+            newTask.replaceChild(input, taskSpan);
+            input.focus();
+        };
         if (completed) {
             taskSpan.style.fontWeight = 'bold';
             taskSpan.style.color = 'purple'; // Change to purple
@@ -94,14 +113,18 @@ document.addEventListener('DOMContentLoaded', () => {
         todoList.appendChild(newTask);
     }
 
-    // Add event listener for button click
-    addButton.addEventListener('click', addTask);
+    // Add event listeners for button clicks
+    addButtons.forEach((button, index) => {
+        button.addEventListener('click', () => addTask(todoInputs[index], listSelects[index]));
+    });
 
-    // Add event listener for Enter key press
-    todoInput.addEventListener('keypress', (event) => {
-        if (event.key === 'Enter') {
-            addTask();
-        }
+    // Add event listeners for Enter key presses
+    todoInputs.forEach((input, index) => {
+        input.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                addTask(todoInputs[index], listSelects[index]);
+            }
+        });
     });
 
     // Load tasks when the page is loaded

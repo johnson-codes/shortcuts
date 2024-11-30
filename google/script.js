@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const addButtons = document.querySelectorAll('[id^=add-todo]');
     const todoInputs = document.querySelectorAll('[id^=todo-input]');
     const listSelects = document.querySelectorAll('[id^=list-select]');
-    const localStorageKey = 'geminiTasks_' + new Date().getTime();
+    const localStorageKey = 'geminiTasks'; // Use a consistent key
 
     // Load tasks from localStorage
     function loadTasks() {

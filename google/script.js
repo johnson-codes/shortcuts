@@ -136,4 +136,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load tasks when the page is loaded
     loadTasks();
+    saveTasks(); // Ensure tasks are saved after loading
 });

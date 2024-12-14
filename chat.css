@@ -125,7 +125,10 @@
     color: #333;
 }
 
-
+.option-button:hover {
+    background-color: #e0e0e0;
+    color:white;
+}
 
 .bold-text {
     font-weight: bold;

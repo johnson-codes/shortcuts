@@ -26,6 +26,7 @@
 }
 
 .chat-button:hover {
+    background-image: linear-gradient(to right, #5a0ebc, #1f63e0);
     opacity: 0.9;
     transform: translateY(-2px);
 }
@@ -124,9 +125,7 @@
     color: #333;
 }
 
-.option-button:hover {
-    background-color: #f0f0f0;
-}
+
 
 .bold-text {
     font-weight: bold;

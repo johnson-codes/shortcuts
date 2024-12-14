@@ -106,6 +106,7 @@
 .chat-options {
     padding: 15px;
     display: flex;
+    color: black;
     flex-direction: column;
     gap: 8px;
 }
@@ -120,11 +121,11 @@
     text-align: left;
     font-size: 14px;
     transition: all 0.3s ease;
+    color: #333;
 }
 
 .option-button:hover {
     background-color: #f0f0f0;
-    border-color: #6a11cb;
 }
 
 .bold-text {

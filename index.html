@@ -783,6 +783,11 @@
             color: grey;
             animation: typing 3s steps(30, end) infinite;
         }
+
+        /* Ensure all text in the chat messages is black */
+        .chat-messages {
+            color: black;
+        }
     </style>
 </head>
 <body>
@@ -982,16 +987,18 @@
                 <button class="close-chat" id="closeChat">×</button>
             </div>
             <div class="chat-messages" id="chatMessages">
-                <div class="timestamp">Today</div>
+                <div class="timestamp">Johnson</div>
+                <br>
                 <div class="message bot">
-                    Hello! How can I help you today?
-                    <div class="message-info">Automated • Just now</div>
+                    Hello! Please contact me at 
+                    <a href="mailto:info@johnsonmarketer.com">info@johnsonmarketer.com</a>
+                    <br>
                 </div>
             </div>
             <div class="chat-options">
                 <button class="option-button" onclick="navigateTo('https://www.johnsonmarketer.com')">Back to Home</button>
                 <button class="option-button" onclick="navigateTo('https://projects.johnsonmarketer.com')">Back to Project Checklist</button>
-                <button class="option-button" onclick="navigateTo('https://shortcuts.johnsonmarketer.com')">Back to shortcuts</button>
+                <button class="option-button" onclick="navigateTo('https://shortcuts.johnsonmarketer.com')">Back to Shortcuts</button>
             </div>
         </div>
     </div>

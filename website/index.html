@@ -159,44 +159,52 @@
         </div>
     </div>
 
-    <!-- Placeholder for chat widget -->
-    <div id="chat-widget-placeholder"></div>
+            <!-- Chat widget -->
+            <div id="chatContainer"></div>
 
-    <script src="script.js"></script>
-
-    <div id="chat-widget-placeholder"></div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Load chat.html content
-            fetch('../chat.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('chat-widget-placeholder').innerHTML = data;
-
-                    // Set up event listeners after the chat widget is loaded
-                    const chatButton = document.getElementById('chatButton');
-                    const chatContainer = document.getElementById('chatContainer');
-
-                    if (chatButton && chatContainer) {
-                        // Toggle chat container visibility
-                        chatButton.addEventListener('click', function() {
-                            chatContainer.classList.toggle('active');
-                        });
+            <script src="script.js"></script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Focus on the input field when the page loads
+                    const todoInput = document.getElementById('todo-input');
+                    if (todoInput) {
+                        todoInput.focus();
                     }
-                })
-                .catch(error => console.error('Error loading chat widget:', error));
-
-            // Existing JavaScript code
-            const todoInput = document.getElementById('todo-input');
-            if (todoInput) {
-                todoInput.focus();
-            }
-
-            // Function to navigate to a URL
-            function navigateTo(url) {
-                window.location.href = url;
-            }
-        });
-    </script>
-</body>
-</html> 
+        
+                    // Load chat widget HTML
+                    fetch('../chat.html')
+                        .then(response => response.text())
+                        .then(data => {
+                            document.getElementById('chatContainer').innerHTML = data;
+                            // Initialize chat widget functionality
+                            const chatButton = document.getElementById('chatButton');
+                            const chatContainer = document.querySelector('.chat-container');
+                            const closeChat = document.getElementById('closeChat');
+        
+                            if (chatButton) {
+                                chatButton.addEventListener('click', function() {
+                                    chatContainer.classList.toggle('active');
+                                    console.log('Chat button clicked, chatContainer active:', chatContainer.classList.contains('active'));
+                                });
+                            } else {
+                                console.error('Chat button not found!');
+                            }
+        
+                            if (closeChat) {
+                                closeChat.addEventListener('click', function() {
+                                    chatContainer.classList.remove('active');
+                                    console.log('Close chat button clicked');
+                                });
+                            } else {
+                                console.error('Close chat button not found!');
+                            }
+                        })
+                        .catch(error => console.error('Error loading chat widget:', error));
+                });
+        
+                function navigateTo(url) {
+                    window.location.href = url;
+                }
+            </script>
+       </body>
+       </html> 

@@ -1,13 +1,31 @@
-/*************************************************
- * 1) EXISTING LOGIC FOR SPOTLIGHT SHORTCUTS
- *************************************************/
 document.addEventListener('DOMContentLoaded', () => {
-    const addButton = document.getElementById('add-todo');
-    const todoInput = document.getElementById('todo-input');
-    const listSelect = document.getElementById('list-select');
+    // Use a unique localStorage key
+    const storageKey = "MLShortcutApp"; 
 
-    // Use a unique key for localStorage
-    const storageKey = 'spotlightShortcutsTasks';
+    // Add event listeners for both add buttons
+    document.getElementById('add-todo-1').addEventListener('click', () => {
+        addTask(1);
+    });
+    document.getElementById('add-todo-2').addEventListener('click', () => {
+        addTask(2);
+    });
+
+    // Add event listeners for Enter key press on both input fields
+    document.getElementById('todo-input-1').addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            addTask(1);
+        }
+    });
+    document.getElementById('todo-input-2').addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            addTask(2);
+        }
+    });
+
+    // Load tasks when the page is loaded
+    loadTasks();
+
+    // ----- Functions -----
 
     // Load tasks from localStorage
     function loadTasks() {
@@ -22,8 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const allTasks = [];
         document.querySelectorAll('ol').forEach(list => {
             const tasks = Array.from(list.children).map(task => ({
-                text: task.querySelector('span').textContent,
-                completed: task.querySelector('input').checked,
+                text: task.querySelector('span')?.textContent || '',
+                completed: task.querySelector('input')?.checked || false,
                 listId: list.id
             }));
             allTasks.push(...tasks);
@@ -31,26 +49,29 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem(storageKey, JSON.stringify(allTasks));
     }
 
-    // Add a new task
-    function addTask() {
+    // Function to add a new task (by wrapperIndex, either 1 or 2)
+    function addTask(wrapperIndex) {
+        const todoInput = document.getElementById(`todo-input-${wrapperIndex}`);
+        const listSelect = document.getElementById(`list-select-${wrapperIndex}`);
         const taskText = todoInput.value.trim();
         const selectedListId = listSelect.value;
-
         if (taskText !== '') {
             addTaskToList(taskText, false, selectedListId);
-            todoInput.value = ''; 
-            saveTasks(); 
+            todoInput.value = '';
+            saveTasks();
         }
     }
 
-    // Add a task to a specific list
+    // Function to add a task to the specified list with a delete button and checkbox
     function addTaskToList(taskText, completed, listId) {
         const todoList = document.getElementById(listId);
+        if (!todoList) return;
+
         const newTask = document.createElement('li');
         newTask.style.position = 'relative';
         newTask.style.listStyleType = 'none';
 
-        // Checkbox
+        // Create the checkbox
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.checked = completed;
@@ -66,15 +87,15 @@ document.addEventListener('DOMContentLoaded', () => {
             saveTasks();
         };
 
-        // Task text (editable)
+        // Create the task text span
         const taskSpan = document.createElement('span');
         taskSpan.textContent = taskText;
-        taskSpan.contentEditable = true;
-        taskSpan.onblur = function() {
-            saveTasks();
-        };
+        if (completed) {
+            taskSpan.style.fontWeight = 'bold';
+            taskSpan.style.color = 'purple';
+        }
 
-        // Delete button
+        // Create the delete button
         const deleteButton = document.createElement('span');
         deleteButton.textContent = ' x';
         deleteButton.style.color = 'red';
@@ -83,18 +104,11 @@ document.addEventListener('DOMContentLoaded', () => {
         deleteButton.style.position = 'absolute';
         deleteButton.style.right = '0';
         deleteButton.onclick = function() {
-            if (confirm('Are you sure you want to delete this task?')) {
-                todoList.removeChild(newTask);
-                saveTasks();
-            }
+            todoList.removeChild(newTask);
+            saveTasks();
         };
 
-        // Append to the li
-        newTask.appendChild(checkbox);
-        newTask.appendChild(taskSpan);
-        newTask.appendChild(deleteButton);
-
-        // Show the delete button on hover
+        // Hover effect to show/hide delete button
         newTask.onmouseover = function() {
             deleteButton.style.display = 'inline';
         };
@@ -102,52 +116,35 @@ document.addEventListener('DOMContentLoaded', () => {
             deleteButton.style.display = 'none';
         };
 
-        // Finally add the newTask li to the selected list
+        // Assemble the elements
+        newTask.appendChild(checkbox);
+        newTask.appendChild(taskSpan);
+        newTask.appendChild(deleteButton);
+
+        // Add to the correct list
         todoList.appendChild(newTask);
+
+        // Scroll into view if needed
+        newTask.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
 
-    // Event listeners
-    addButton.addEventListener('click', addTask);
-    todoInput.addEventListener('keypress', (event) => {
-        if (event.key === 'Enter') {
-            addTask();
+    // ----- Optional Theme Logic -----
+    function saveTheme(theme) {
+        localStorage.setItem('mlTheme', theme);
+    }
+    function loadTheme() {
+        const theme = localStorage.getItem('mlTheme');
+        if (theme) {
+            applyTheme(theme);
         }
+    }
+    function applyTheme(theme) {
+        document.body.className = theme;
+    }
+    document.getElementById('themeSelector').addEventListener('change', (event) => {
+        const selectedTheme = event.target.value;
+        applyTheme(selectedTheme);
+        saveTheme(selectedTheme);
     });
-
-    // Load tasks when the page is loaded
-    loadTasks();
-});
-
-/*************************************************
- * 2) NEW: LOGIC FOR YOUR 8 CATEGORIES
- *************************************************/
-// The array of new categories that go in rows of 4
-const categories = [
-  "Flagship Models",
-  "Reasoning Models",
-  "Real-Time Models",
-  "Audio Models",
-  "Image Models",
-  "Text-to-Speech",
-  "Embedding Models",
-  "Moderation Models"
-];
-
-// After DOMContentLoaded, we also populate the categories
-window.addEventListener('DOMContentLoaded', function() {
-    const categoryGrid = document.getElementById('category-grid');
-    
-    // Create a <div> for each category
-    categories.forEach(category => {
-        const catDiv = document.createElement('div');
-        catDiv.classList.add('category-item');
-        catDiv.textContent = category;
-
-        // (Optional) If you want a click event:
-        // catDiv.addEventListener('click', () => {
-        //   alert(`You clicked on ${category}`);
-        // });
-
-        categoryGrid.appendChild(catDiv);
-    });
+    window.addEventListener('load', loadTheme);
 });

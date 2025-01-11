@@ -892,6 +892,13 @@
                         logo.src = 'https://raw.githubusercontent.com/Johnson-Frontend/project/f68cdce450cba72f6748550041e998e7db9e2fd9/image/logo.svg';
                     });
                 }
+
+                // Add sticky header behavior
+                const header = document.querySelector('header');
+                if (header) {
+                    header.classList.add('sticky-header');
+                    header.classList.add('debug-header');
+                }
             })
             .catch(error => console.error('Error loading header:', error));
     </script>

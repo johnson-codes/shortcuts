@@ -4,6 +4,7 @@
 body {
     margin: 0;
     padding: 0;
+    padding-top: 80px;
 }
 
 header {
@@ -17,9 +18,9 @@ header {
 }
 
 .sticky-header {
-    position: -webkit-sticky !important;
-    position: sticky !important;
+    position: fixed !important;
     top: 0;
+    left: 0;
     width: 100%;
     z-index: 9999;
     background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);

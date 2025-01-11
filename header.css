@@ -25,6 +25,7 @@ header {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    margin-left: -30px;
 }
 
 /* Logo styles */
@@ -32,6 +33,7 @@ header {
     display: flex;
     align-items: center;
     gap: 10px;
+    margin-left: 60px;
 }
 
 .nav-logo img {
@@ -59,8 +61,8 @@ header {
 nav a {
     color: #fff;
     text-decoration: none;
-    font-weight: 500;
-    font-size: 0.95rem;
+    font-weight: bold;
+    font-size: 0.9rem;
     padding: 0.5rem;
     transition: all 0.3s ease;
 }

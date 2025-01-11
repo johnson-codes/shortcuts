@@ -288,38 +288,10 @@
         </div>
     </div>
 
-    <!-- Chat widget -->
-    <div class="chat-widget" id="chatWidget">
-        <div class="chat-button" id="chatButton">
-            <div class="chat-button-content">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white">
-                    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
-                </svg>
-                <span>Chat</span>
-            </div>
-            <div class="notification">1</div>
-        </div>
-        <div class="chat-container" id="chatContainer">
-            <div class="chat-header">
-                <h3>Software Engineering Services</h3>
-                <button class="close-chat" id="closeChat">×</button>
-            </div>
-            <div class="chat-messages" id="chatMessages">
-                <div class="timestamp">Today</div>
-                <div class="message bot">
-                    Hello! How can I help you today?
-                    <div class="message-info">Automated • Just now</div>
-                </div>
-            </div>
-            <div class="chat-options">
-                <button class="option-button" onclick="navigateTo('https://www.johnsonmarketer.com')">Back to Home</button>
-                <button class="option-button" onclick="navigateTo('https://projects.johnsonmarketer.com')">Back to Project Checklist</button>
-                <button class="option-button" onclick="navigateTo('https://shortcuts.johnsonmarketer.com')">Back to Shortcuts</button>
-            </div>
-        </div>
-    </div>
+    <div id="chatContainer"></div>
 
     <script src="script.js"></script>
+    <link rel="stylesheet" href="../chat.css">
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Focus on the input field when the page loads
@@ -328,20 +300,29 @@
                 todoInput.focus();
             }
 
-            // Existing chat widget code
-            const chatButton = document.getElementById('chatButton');
-            const chatContainer = document.getElementById('chatContainer');
-            const closeChat = document.getElementById('closeChat');
+            // Load chat widget HTML
+            fetch('../chat.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('chatContainer').innerHTML = data;
+                    // Initialize chat widget functionality
+                    const chatButton = document.getElementById('chatButton');
+                    const chatContainer = document.querySelector('.chat-container');
+                    const closeChat = document.getElementById('closeChat');
 
-            // Toggle chat container visibility
-            chatButton.addEventListener('click', function() {
-                chatContainer.classList.toggle('active');
-            });
+                    if (chatButton) {
+                        chatButton.addEventListener('click', function() {
+                            chatContainer.classList.toggle('active');
+                        });
+                    }
 
-            // Close chat container
-            closeChat.addEventListener('click', function() {
-                chatContainer.classList.remove('active');
-            });
+                    if (closeChat) {
+                        closeChat.addEventListener('click', function() {
+                            chatContainer.classList.remove('active');
+                        });
+                    }
+                })
+                .catch(error => console.error('Error loading chat widget:', error));
         });
 
         function navigateTo(url) {
